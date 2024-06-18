@@ -76,19 +76,19 @@ export default function RootLayout({
             children: [
                 {
                     name: "About us",
-                    href: "/about",
+                    href: "https://mikn.dev/about",
                 },
                 {
                     name: "Partners",
-                    href: "/partners",
+                    href: "https://mikn.dev/partners",
                 },
                 {
                     name: "Services",
-                    href: "/solutions",
+                    href: "https://mikn.dev/solutions",
                 },
                 {
                     name: "Blog",
-                    href: "/blog",
+                    href: "https://mikn.blog/",
                 },
             ],
         },
@@ -101,7 +101,7 @@ export default function RootLayout({
                 },
                 {
                     name: "Contact Info",
-                    href: "/contact",
+                    href: "https://mikn.dev/contact",
                 },
             ],
         },
@@ -128,27 +128,12 @@ export default function RootLayout({
         },
     ];
 
-    const buttons = [
-        {
-            href: "/account",
-            title: "アカウント",
-            colorScheme: "primary",
-        },
-        {
-            title: "🌎",
-            colorScheme: "primary",
-            onClick: () => {
-                changeLanguage();
-            },
-        },
-    ];
-
     return (
         <>
             <Header
                 navigation={nav}
                 //@ts-ignore
-                buttons={buttons}
+                color="#FF9900"
                 brand={{
                     showTitle: true,
                     name: "Payment Center",
@@ -157,7 +142,7 @@ export default function RootLayout({
                 }}
             />
             <div className="mx-auto min-h-screen max-w-7xl px-4 py-24">
-                <AccBanner/>
+                <AccBanner />
                 <ToastProvider>
                     {children}
                     <CookieConsent

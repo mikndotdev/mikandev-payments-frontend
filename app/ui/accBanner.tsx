@@ -34,13 +34,18 @@ export default function AccBanner() {
     if (status === "loading") {
         return (
             <main>
-            <Card className="min-w-96">
-                <Center>
-                    <MdAccountCircle size={75} className="text-primary"/>
-                    <Heading className="ml-5 mt-6" size="xl">Verifying account...</Heading>
-                    <ImSpinner2 className="animate-spin text-primary ml-3 mt-7" size={25} />
-                </Center>
-            </Card>
+                <Card className="min-w-96">
+                    <Center>
+                        <MdAccountCircle size={75} className="text-primary" />
+                        <Heading className="ml-5 mt-6" size="xl">
+                            Verifying account...
+                        </Heading>
+                        <ImSpinner2
+                            className="animate-spin text-primary ml-3 mt-7"
+                            size={25}
+                        />
+                    </Center>
+                </Card>
             </main>
         );
     }
@@ -62,31 +67,31 @@ export default function AccBanner() {
                 </Card>
                 <Card className="min-w-96 mt-5">
                     <Center>
-                    <CiLogout
-                        size="40"
-                        className="text-red-500"
-                        onClick={() => signOut()}
-                    />
+                        <CiLogout
+                            size="40"
+                            className="text-red-500"
+                            onClick={() => signOut()}
+                        />
                     </Center>
                 </Card>
             </main>
         );
     }
-        return (
-            <main>
-                <AlertDialog open={open} onClose={() => setOpen(false)}>
-                    <Center>
-                        <Image
-                            src={MDAccount.src}
-                            alt="MikanDev Logo"
-                            width={240}
-                            height={120}
-                        />
-                    </Center>
-                    <AlertDialogDescription className="text-center">
-                        Login to access your account
-                    </AlertDialogDescription>
-                    <Center>
+    return (
+        <main>
+            <AlertDialog open={open} onClose={() => setOpen(false)}>
+                <Center>
+                    <Image
+                        src={MDAccount.src}
+                        alt="MikanDev Logo"
+                        width={240}
+                        height={120}
+                    />
+                </Center>
+                <AlertDialogDescription className="text-center">
+                    Login to access your account
+                </AlertDialogDescription>
+                <Center>
                     <AlertDialogFooter
                         actionText="Login with MikanDev Account"
                         cancelText="Browse as Guest"
@@ -94,23 +99,23 @@ export default function AccBanner() {
                         onAction={() => signIn("logto")}
                         onCancel={() => setOpen(false)}
                     />
-                    </Center>
-                </AlertDialog>
-                <Card className="min-w-96 flex justify-between items-center">
-                    <div>
-                        <Heading size="xl">Not logged in</Heading>
-                    </div>
-                    <FaQuestionCircle size="75" className="text-primary" />
-                </Card>
-                <Card className="min-w-96 mt-5">
-                    <Center>
+                </Center>
+            </AlertDialog>
+            <Card className="min-w-96 flex justify-between items-center">
+                <div>
+                    <Heading size="xl">Not logged in</Heading>
+                </div>
+                <FaQuestionCircle size="75" className="text-primary" />
+            </Card>
+            <Card className="min-w-96 mt-5">
+                <Center>
                     <CiLogin
                         size="40"
                         className="text-green-500"
                         onClick={() => signIn("logto")}
                     />
-                    </Center>
-                </Card>
-            </main>
-        );
-    }
+                </Center>
+            </Card>
+        </main>
+    );
+}
