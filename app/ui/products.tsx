@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import MikanMascot from "@/app/assets/MikanMascotFull.png";
 import MDAccount from "@/app/assets/MDAccount.png";
 
+//@ts-ignore
 export default function ProdList({ products }) {
     const json = JSON.parse(products);
     const { data: session, status } = useSession();
