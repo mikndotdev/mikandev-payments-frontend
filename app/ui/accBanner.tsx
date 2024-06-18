@@ -61,11 +61,13 @@ export default function AccBanner() {
                     />
                 </Card>
                 <Card className="min-w-96 mt-5">
+                    <Center>
                     <CiLogout
                         size="40"
                         className="text-red-500"
                         onClick={() => signOut()}
                     />
+                    </Center>
                 </Card>
             </main>
         );
@@ -101,11 +103,13 @@ export default function AccBanner() {
                     <FaQuestionCircle size="75" className="text-primary" />
                 </Card>
                 <Card className="min-w-96 mt-5">
+                    <Center>
                     <CiLogin
                         size="40"
                         className="text-green-500"
                         onClick={() => signIn("logto")}
                     />
+                    </Center>
                 </Card>
             </main>
         );

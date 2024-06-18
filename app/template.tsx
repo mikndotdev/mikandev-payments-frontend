@@ -157,7 +157,7 @@ export default function RootLayout({
                 }}
             />
             <div className="mx-auto min-h-screen max-w-7xl px-4 py-24">
-                <AccBanner />
+                <AccBanner/>
                 <ToastProvider>
                     {children}
                     <CookieConsent
