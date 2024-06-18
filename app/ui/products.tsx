@@ -103,7 +103,7 @@ export default function ProdList({ products }) {
             </AlertDialog>
             {productChunks.map((chunk, chunkIndex) => (
                 // biome-ignore lint/correctness/useJsxKeyInIterable: <explanation>
-                <Center>
+                <Center className="mt-3">
                     <Flex
                         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                         key={chunkIndex}
