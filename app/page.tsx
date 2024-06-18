@@ -16,8 +16,27 @@ import {
 
 import ProdList from "./ui/products";
 
+import MDHeart from "@/app/assets/MDHeart.png";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+
 export default function Home() {
     const { data: session, status } = useSession();
+    const toast = useToast();
+    const searchParams = useSearchParams();
+
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    useEffect(() => {
+      const isCanceled = searchParams?.get("canceled");
+      if (isCanceled === "true") {
+          toast.open({
+              title: "Payment failed",
+              description: "Something went wrong with your payment. Please try again, or contact support if the issue persists.",
+              type: "error",
+          });
+      }
+  }, [searchParams]);
+
     return (
         <main className="mt-10">
             <Heading size="2xl" className="text-center">
@@ -28,45 +47,39 @@ export default function Home() {
                     products={JSON.stringify([
                         {
                             id: 1,
-                            name: "Product 1",
-                            price: 100,
-                            image: "/path-to-image1.png",
+                            name: "Small Donation",
+                            price: 3,
+                            image: MDHeart.src,
                         },
                         {
                             id: 2,
-                            name: "Product 2",
-                            price: 200,
-                            image: "/path-to-image2.png",
+                            name: "Bigger Donation",
+                            price: 5,
+                            image: MDHeart.src,
                         },
                         {
                             id: 3,
-                            name: "Product 3",
-                            price: 300,
-                            image: "/path-to-image3.png",
+                            name: "Even Bigger Donation",
+                            price: 10,
+                            image: MDHeart.src,
                         },
                         {
                             id: 4,
-                            name: "Product 4",
-                            price: 400,
-                            image: "/path-to-image4.png",
+                            name: "Huge Donation",
+                            price: 50,
+                            image: MDHeart.src,
                         },
                         {
                             id: 5,
-                            name: "Product 5",
-                            price: 500,
-                            image: "/path-to-image5.png",
+                            name: "Insane Donation",
+                            price: 100,
+                            image: MDHeart.src,
                         },
                         {
                             id: 6,
-                            name: "Product 6",
-                            price: 600,
-                            image: "/path-to-image6.png",
-                        },
-                        {
-                            id: 7,
-                            name: "Product 7",
-                            price: 700,
-                            image: "/path-to-image7.png",
+                            name: "Elon Musk tier",
+                            price: 500,
+                            image: MDHeart.src,
                         },
                     ])}
                 />
