@@ -11,8 +11,8 @@ export default async function handler(req: { method: string; body: { id: any; pr
     if (req.method === 'POST') {
         const { id, price, email, discord, name } = req.body;
 
-        const success_url = `http://localhost:3000/result?uid=${discord}&name=${name}&price=${price}`;
-        const cancel_url = "http://localhost:3000/?canceled=true";
+        const success_url = `https://payments.mikandev.com/result?uid=${discord}&name=${name}&price=${price}`;
+        const cancel_url = "https://payments.mikandev.com/?canceled=true";
 
         try {
             // Create a new Checkout Session

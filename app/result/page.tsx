@@ -34,25 +34,35 @@ export default function Success() {
     const pid = searchParams?.get("name");
     const price = searchParams?.get("price");
 
-    if(status === "unauthenticated") {
-        router.push("/");
-    }
-
-    if(!uid || !pid || !price) {
-        router.push("/");
-    }
+    useEffect(() => {
+        if(status === "unauthenticated" || !uid || !pid || !price) {
+            router.push("/");
+        }
+    }, [status, uid, pid, price, router]);
+    
+    useEffect(() => {
+        if (status === "authenticated") {
+            console.log(uid);
+            console.log(session?.user?.discord);
+            if (!(uid === session?.user?.discord)) {
+                setLoading(false);
+                setFailed(true);
+                toast.open({
+                    title: "UID check failed",
+                    description: `Something went wrong validating your UID. Please contact support with the following information: UID ${uid}`,
+                    type: "error",
+                });
+            } else {
+                setLoading(false);
+            }
+        }
+    }, [uid, session, status, toast]);
 
     useEffect(() => {
-        if (!(uid === session?.user?.discord)) {
+        if (!loading && !failed) {
             setLoading(false);
-            setFailed(true);
-            toast.open({
-                title: "UID check failed",
-                description: `Something went wrong validating your UID. Please contact support with the following information: UID ${uid}`,
-                type: "error",
-            });
         }
-    },);
+    }, [loading, failed]);
 
     if (loading) {
         return <Loading />;
@@ -79,4 +89,24 @@ export default function Success() {
             </main>
         );
     }
-}
+    
+        if (!loading && !failed) {
+        return (
+            <main className="mt-10">
+                <Heading size="3xl" className="text-center text-green-500">
+                    Payment successful
+                </Heading>
+                <Card className="min-w-96 mt-3">
+                    <Heading size="xl" className="text-center">
+                        Thank you for your purchase, {session?.user?.name}!
+                    </Heading>
+                    <Heading size="xl" className="text-center">
+                        You have successfully purchased {pid} for ${price}.
+                    </Heading>
+                    <Center>
+                        <Button onClick={() => router.push("/")} className="mt-5 text-white bg-primary">Go back</Button>
+                    </Center>
+                </Card>
+            </main>
+        );
+    }}
