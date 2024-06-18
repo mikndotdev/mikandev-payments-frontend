@@ -1,17 +1,17 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-	content: [
-		"./index.html",
-		"./pages/**/*.{js,ts,jsx,tsx,mdx}",
-		"./components/**/*.{js,ts,jsx,tsx,mdx}",
-		"./app/**/*.{js,ts,jsx,tsx,mdx}",
-		"node_modules/@neodyland/ui/**/*.{js,ts,jsx,tsx}",
-	],
-	theme: {
-		extend: {
-			colors: {
-				/*
+    content: [
+        "./index.html",
+        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./app/**/*.{js,ts,jsx,tsx,mdx}",
+        "node_modules/@neodyland/ui/**/*.{js,ts,jsx,tsx}",
+    ],
+    theme: {
+        extend: {
+            colors: {
+                /*
        Theme のカスタマイズ
         以下のカラーを変更できる
 
@@ -33,25 +33,25 @@ const config: Config = {
 
         primary, secondary, tertiary は、各component の colorScheme で指定できる
       */
-				primary: "#ff9900",
-				"on-primary": "#ffffff",
-				secondary: "#ff9900",
-				"on-secondary": "#2d1800",
-				tertiary: "#ff9900",
-				"on-tertiary": "#2d1800",
-				background: "#ff9900",
-				"on-background": "#ffffff",
-				surface: "#ff9900",
-				"on-surface": "#2d1800",
-				outline: "#ff9900",
-				footer: {
-					background: "#2d1800",
-					text: "#ffffff",
-					border: "#ff9900",
-				},
-			},
-		},
-	},
-	plugins: [require("@neodyland/ui/plugin")],
+                primary: "#ff9900",
+                "on-primary": "#ffffff",
+                secondary: "#ff9900",
+                "on-secondary": "#2d1800",
+                tertiary: "#ff9900",
+                "on-tertiary": "#2d1800",
+                background: "#ff9900",
+                "on-background": "#ffffff",
+                surface: "#ff9900",
+                "on-surface": "#2d1800",
+                outline: "#ff9900",
+                footer: {
+                    background: "#2d1800",
+                    text: "#ffffff",
+                    border: "#ff9900",
+                },
+            },
+        },
+    },
+    plugins: [require("@neodyland/ui/plugin")],
 };
 export default config;
