@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { FaQuestionCircle } from "react-icons/fa";
 import { CiLogout, CiLogin } from "react-icons/ci";
+import { MdAccountCircle } from "react-icons/md";
 
 import MDAccount from "@/app/assets/MDAccount.png";
 
@@ -35,10 +36,9 @@ export default function AccBanner() {
             <main>
             <Card className="min-w-96">
                 <Center>
-                    <ImSpinner2
-                        size="75"
-                        className="animate-spin text-primary"
-                    />
+                    <MdAccountCircle size={75} className="text-primary"/>
+                    <Heading className="ml-5 mt-6" size="xl">Verifying account...</Heading>
+                    <ImSpinner2 className="animate-spin text-primary ml-3 mt-7" size={25} />
                 </Center>
             </Card>
             </main>
