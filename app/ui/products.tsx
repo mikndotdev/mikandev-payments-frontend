@@ -39,7 +39,7 @@ export default function ProdList({ products }) {
 
     const productChunks = chunkArray([...json], 3);
 
-    const purchaseProduct = async (id: number, price: number, email: string, discord: string, name: string) => {
+    const purchaseProduct = async (id: number, price: number, email: string, discord: string, name: string, cid: string) => {
         if (status === "loading") {
             return toast.open({
                 title: "Account verification in progress",
@@ -66,6 +66,7 @@ export default function ProdList({ products }) {
                 email: email,
                 discord: discord,
                 name: name,
+                cid: cid,
             }),
         });
     
@@ -140,6 +141,7 @@ export default function ProdList({ products }) {
                                             session?.user.email || "",
                                             session?.user.discord || "",
                                             product.name,
+                                            session?.user.id || "",
                                         );
                                     }}
                                     className="w-full text-white bg-primary"

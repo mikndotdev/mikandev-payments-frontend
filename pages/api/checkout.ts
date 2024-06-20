@@ -7,17 +7,16 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
 });
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export default async function handler(req: { method: string; body: { id: any; price: any; email: any; discord: any; name: any; success_url: any; cancel_url: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { url?: string | null; error?: string; }): void; new(): any; }; end: { (arg0: string): void; new(): any; }; }; setHeader: (arg0: string, arg1: string) => void; }) {
+export default async function handler(req: { method: string; body: { id: any; price: any; email: any; discord: any; name: any; success_url: any; cancel_url: any; cid: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { url?: string | null; error?: string; }): void; new(): any; }; end: { (arg0: string): void; new(): any; }; }; setHeader: (arg0: string, arg1: string) => void; }) {
     if (req.method === 'POST') {
-        const { id, price, email, discord, name } = req.body;
+        const { cid, id, price, email, discord, name } = req.body;
 
-        const success_url = `https://payments.mikandev.com/result?uid=${discord}&name=${name}&price=${price}`;
-        const cancel_url = "https://payments.mikandev.com/?canceled=true";
+        const success_url = `${process.env.HOST}/result?cid=${cid}`;
+        const cancel_url = `${process.env.HOST}/?canceled=true`;
 
         try {
             // Create a new Checkout Session
             const session = await stripe.checkout.sessions.create({
-                payment_method_types: ['card'],
                 line_items: [{
                     price_data: {
                         currency: 'usd',
@@ -29,6 +28,12 @@ export default async function handler(req: { method: string; body: { id: any; pr
                     quantity: 1,
                 }],
                 mode: 'payment',
+                customer_creation: 'always',
+                metadata: {
+                    discord,
+                    email,
+                    cid,
+                },
                 customer_email: email,
                 success_url: success_url,
                 cancel_url: cancel_url,

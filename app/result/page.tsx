@@ -21,42 +21,89 @@ import { useRouter } from "next/navigation";
 import MDHeart from "@/app/assets/MDHeart.png";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { cp } from "fs";
 
 export default function Success() {
     const { data: session, status } = useSession();
     const [loading, setLoading] = useState(true);
     const [failed, setFailed] = useState(false);
+    const [prodName, setProdName] = useState("");
+    const [quantity, setQuantity] = useState(0);
+    const [price, setPrice] = useState(0);
+    const [id, setId] = useState("");
     const toast = useToast();
     const searchParams = useSearchParams();
     const router = useRouter();
 
-    const uid = searchParams?.get("uid");
-    const pid = searchParams?.get("name");
-    const price = searchParams?.get("price");
+    const cid = searchParams?.get("cid");
 
     useEffect(() => {
-        if(status === "unauthenticated" || !uid || !pid || !price) {
+        if(status === "unauthenticated" || !cid) {
             router.push("/");
         }
-    }, [status, uid, pid, price, router]);
+    }, [status, cid, router]);
     
     useEffect(() => {
-        if (status === "authenticated") {
-            console.log(uid);
-            console.log(session?.user?.discord);
-            if (!(uid === session?.user?.discord)) {
-                setLoading(false);
-                setFailed(true);
-                toast.open({
-                    title: "UID check failed",
-                    description: `Something went wrong validating your UID. Please contact support with the following information: UID ${uid}`,
-                    type: "error",
+        const fetchData = async () => {
+            if (status === "authenticated") {
+                console.log(cid);
+                console.log(session?.user?.discord);
+                const processResponse = await fetch(`${process.env.NEXT_PUBLIC_PAYMENT_BACKEND}/validate`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        cid: cid,
+                    }),
                 });
-            } else {
-                setLoading(false);
+                if (processResponse.ok) {
+                    const json = await processResponse.json();
+                    const prodName = json.prodName;
+                    const quantity = json.quantity;
+                    const price = json.price;
+                    const id = json.id;
+                    setProdName(prodName);
+                    setQuantity(quantity);
+                    setPrice(price);
+                    setId(id);
+                } else {
+                    const json = await processResponse.json();
+                    const message = json.message;
+                    if (message === "IncompletePayment") {
+                        toast.open({
+                            title: "Payment failed",
+                            description: "We couldn't validate your payment. Please try again, or contact support if you think this is an error.",
+                            type: "error",
+                        });
+                        setFailed(true);
+                        setLoading(false);
+                    }
+                    if (message === "UIDValidationError") {
+                        toast.open({
+                            title: "UID validation failed",
+                            description: "This payment was not made on your account. Please try again, or contact support if you think this is an error.",
+                            type: "error",
+                        });
+                        setFailed(true);
+                        setLoading(false);
+                    }
+                    if (message === "Expired") {
+                        toast.open({
+                            title: "Payment expired",
+                            description: "This payment has expired, or has already been validated. Please try again, or contact support if you think this is an error.",
+                            type: "error",
+                        });
+                        setFailed(true);
+                        setLoading(false);
+                    }
+                    
+                }
             }
-        }
-    }, [uid, session, status, toast]);
+        };
+    
+        fetchData();
+    }, [cid, session, status, toast]);
 
     useEffect(() => {
         if (!loading && !failed) {
@@ -101,8 +148,13 @@ export default function Success() {
                         Thank you for your purchase, {session?.user?.name}!
                     </Heading>
                     <Heading size="xl" className="text-center">
-                        You have successfully purchased {pid} for ${price}.
+                        You have successfully purchased {quantity}x {prodName} for ${price}.
                     </Heading>
+                    <Center className="mt-3">
+                        <Heading size="sm" className="text-center mt-5">
+                            Ref ID: {id}
+                        </Heading>
+                    </Center>
                     <Center>
                         <Button onClick={() => router.push("/")} className="mt-5 text-white bg-primary">Go back</Button>
                     </Center>
