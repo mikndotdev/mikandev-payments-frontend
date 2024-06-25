@@ -84,6 +84,27 @@ export default function Home() {
                     ])}
                 />
             </Card>
+            <Heading size="2xl" className="text-center mt-10">
+                Premium subscriptions (one time payment)
+            </Heading>
+            <Card className="min-w-96 mt-3">
+                <ProdList
+                    products={JSON.stringify([
+                        {
+                            id: 7,
+                            name: "MikanBot Premium (1 month)",
+                            price: 3,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: 8,
+                            name: "MikanBot Premium (1 year)",
+                            price: 30,
+                            image: MDHeart.src,
+                        },
+                    ])}
+                />
+            </Card>
         </main>
     );
 }

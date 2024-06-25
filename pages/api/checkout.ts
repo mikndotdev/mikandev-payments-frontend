@@ -33,6 +33,7 @@ export default async function handler(req: { method: string; body: { id: any; pr
                     discord,
                     email,
                     cid,
+                    id,
                 },
                 customer_email: email,
                 success_url: success_url,
