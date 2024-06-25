@@ -77,8 +77,26 @@ export default function Home() {
                         },
                         {
                             id: 6,
-                            name: "Elon Musk tier",
+                            name: "Whale tier",
                             price: 500,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: 7,
+                            name: "Megawhale tier",
+                            price: 1000,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: 8,
+                            name: "Kraken tier",
+                            price: 2500,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: 9,
+                            name: "Elon Musk tier",
+                            price: 5000,
                             image: MDHeart.src,
                         },
                     ])}
