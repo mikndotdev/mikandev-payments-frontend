@@ -10,7 +10,7 @@ export default function myImageLoader({
     const query = new URLSearchParams();
 
     const imageOptimizationApi = "https://i.mikandev.com/image";
-    const baseUrl = "https://mikn.dev";
+    const baseUrl = "https://payments.mikandev.com";
 
     const fullSrc = `${baseUrl}${src}`;
 
