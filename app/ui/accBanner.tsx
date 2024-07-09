@@ -48,10 +48,7 @@ export default function AccBanner() {
                 </Card>
                 <Card className="min-w-96 mt-5">
                     <Center>
-                        <CiClock2
-                            size="40"
-                            className="text-yellow-500"
-                        />
+                        <CiClock2 size="40" className="text-yellow-500" />
                     </Center>
                 </Card>
             </main>

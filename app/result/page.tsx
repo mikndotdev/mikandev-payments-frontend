@@ -38,25 +38,28 @@ export default function Success() {
     const cid = searchParams?.get("cid");
 
     useEffect(() => {
-        if(status === "unauthenticated" || !cid) {
+        if (status === "unauthenticated" || !cid) {
             router.push("/");
         }
     }, [status, cid, router]);
-    
+
     useEffect(() => {
         const fetchData = async () => {
             if (status === "authenticated") {
                 console.log(cid);
                 console.log(session?.user?.discord);
-                const processResponse = await fetch(`${process.env.NEXT_PUBLIC_PAYMENT_BACKEND}/validate`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
+                const processResponse = await fetch(
+                    `${process.env.NEXT_PUBLIC_PAYMENT_BACKEND}/validate`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            cid: cid,
+                        }),
                     },
-                    body: JSON.stringify({
-                        cid: cid,
-                    }),
-                });
+                );
                 if (processResponse.ok) {
                     const json = await processResponse.json();
                     const prodName = json.prodName;
@@ -73,7 +76,8 @@ export default function Success() {
                     if (message === "IncompletePayment") {
                         toast.open({
                             title: "Payment failed",
-                            description: "We couldn't validate your payment. Please try again, or contact support if you think this is an error.",
+                            description:
+                                "We couldn't validate your payment. Please try again, or contact support if you think this is an error.",
                             type: "error",
                         });
                         setFailed(true);
@@ -82,7 +86,8 @@ export default function Success() {
                     if (message === "UIDValidationError") {
                         toast.open({
                             title: "UID validation failed",
-                            description: "This payment was not made on your account. Please try again, or contact support if you think this is an error.",
+                            description:
+                                "This payment was not made on your account. Please try again, or contact support if you think this is an error.",
                             type: "error",
                         });
                         setFailed(true);
@@ -91,17 +96,17 @@ export default function Success() {
                     if (message === "Expired") {
                         toast.open({
                             title: "Payment expired",
-                            description: "This payment has expired, or has already been validated. Please try again, or contact support if you think this is an error.",
+                            description:
+                                "This payment has expired, or has already been validated. Please try again, or contact support if you think this is an error.",
                             type: "error",
                         });
                         setFailed(true);
                         setLoading(false);
                     }
-                    
                 }
             }
         };
-    
+
         fetchData();
     }, [cid, session, status, toast]);
 
@@ -122,22 +127,36 @@ export default function Success() {
                     Payment failed
                 </Heading>
                 <Card className="min-w-96 mt-3">
-                        <Heading size="xl" className="text-center">
-                            Something went wrong with your payment. Please try again.
-                        </Heading>
-                        <Heading size="xl" className="text-center">
-                            If you are seeing this screen and were charged, please contact support before retrying to avoid double charges.
-                        </Heading>
-                        <Center>
-                            <Button onClick={() => router.push("/")} className="mt-5 mr-2 text-white bg-primary">Go back</Button>
-                            <Button onClick={() => router.push("https://mikn.dev/contact")} className="mt-5 ml-2 text-white bg-primary">Contact support</Button>
-                        </Center>
+                    <Heading size="xl" className="text-center">
+                        Something went wrong with your payment. Please try
+                        again.
+                    </Heading>
+                    <Heading size="xl" className="text-center">
+                        If you are seeing this screen and were charged, please
+                        contact support before retrying to avoid double charges.
+                    </Heading>
+                    <Center>
+                        <Button
+                            onClick={() => router.push("/")}
+                            className="mt-5 mr-2 text-white bg-primary"
+                        >
+                            Go back
+                        </Button>
+                        <Button
+                            onClick={() =>
+                                router.push("https://mikn.dev/contact")
+                            }
+                            className="mt-5 ml-2 text-white bg-primary"
+                        >
+                            Contact support
+                        </Button>
+                    </Center>
                 </Card>
             </main>
         );
     }
-    
-        if (!loading && !failed) {
+
+    if (!loading && !failed) {
         return (
             <main className="mt-10">
                 <Heading size="3xl" className="text-center text-green-500">
@@ -148,7 +167,8 @@ export default function Success() {
                         Thank you for your purchase, {session?.user?.name}!
                     </Heading>
                     <Heading size="xl" className="text-center">
-                        You have successfully purchased {quantity}x {prodName} for ${price}.
+                        You have successfully purchased {quantity}x {prodName}{" "}
+                        for ${price}.
                     </Heading>
                     <Center className="mt-3">
                         <Heading size="sm" className="text-center mt-5">
@@ -156,9 +176,15 @@ export default function Success() {
                         </Heading>
                     </Center>
                     <Center>
-                        <Button onClick={() => router.push("/")} className="mt-5 text-white bg-primary">Go back</Button>
+                        <Button
+                            onClick={() => router.push("/")}
+                            className="mt-5 text-white bg-primary"
+                        >
+                            Go back
+                        </Button>
                     </Center>
                 </Card>
             </main>
         );
-    }}
+    }
+}

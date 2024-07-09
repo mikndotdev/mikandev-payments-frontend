@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import localFont from "next/font/local";
 import ClientSessionProvider from "@/app/lib/session";
+import AccButton from "./ui/AccButton";
 import "./globals.css";
 
 const hsr = localFont({ src: "./assets/HSR.woff2" });
@@ -22,7 +23,10 @@ export default function RootLayout({
             lang={headers().get("x-locale")?.split("-")[0]}
         >
             <body>
-                <ClientSessionProvider>{children}</ClientSessionProvider>
+                <ClientSessionProvider>
+                    {children}
+                    <AccButton />
+                </ClientSessionProvider>
                 <script
                     async
                     src="https://analytics.mikandev.tech/script.js"

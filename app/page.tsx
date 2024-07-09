@@ -27,15 +27,16 @@ export default function Home() {
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
-      const isCanceled = searchParams?.get("canceled");
-      if (isCanceled === "true") {
-          toast.open({
-              title: "Payment failed",
-              description: "Something went wrong with your payment. Please try again, or contact support if the issue persists.",
-              type: "error",
-          });
-      }
-  }, [searchParams]);
+        const isCanceled = searchParams?.get("canceled");
+        if (isCanceled === "true") {
+            toast.open({
+                title: "Payment failed",
+                description:
+                    "Something went wrong with your payment. Please try again, or contact support if the issue persists.",
+                type: "error",
+            });
+        }
+    }, [searchParams]);
 
     return (
         <main className="mt-10">

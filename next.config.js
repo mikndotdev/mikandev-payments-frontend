@@ -2,6 +2,8 @@
 
 const nextConfig = {
     images: {
+        loader: "custom",
+        loaderFile: "./loader.ts",
         remotePatterns: [
             {
                 protocol: "https",
@@ -18,6 +20,12 @@ const nextConfig = {
             {
                 protocol: "https",
                 hostname: "cdn.statically.io",
+                port: "",
+                pathname: "/avatars/*",
+            },
+            {
+                protocol: "https",
+                hostname: "cdn.mdusercontent.com",
                 port: "",
                 pathname: "/avatars/*",
             },

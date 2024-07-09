@@ -39,7 +39,14 @@ export default function ProdList({ products }) {
 
     const productChunks = chunkArray([...json], 3);
 
-    const purchaseProduct = async (id: number, price: number, email: string, discord: string, name: string, cid: string) => {
+    const purchaseProduct = async (
+        id: number,
+        price: number,
+        email: string,
+        discord: string,
+        name: string,
+        cid: string,
+    ) => {
         if (status === "loading") {
             return toast.open({
                 title: "Account verification in progress",
@@ -55,10 +62,10 @@ export default function ProdList({ products }) {
             description: "You will be redirected to the payment page shortly",
             type: "info",
         });
-        const response = await fetch('/api/checkout', {
-            method: 'POST',
+        const response = await fetch("/api/checkout", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 id: id,
@@ -69,12 +76,12 @@ export default function ProdList({ products }) {
                 cid: cid,
             }),
         });
-    
+
         const data = await response.json();
         if (data.url) {
             router.push(data.url);
         } else {
-            console.error('Failed to create checkout session:', data);
+            console.error("Failed to create checkout session:", data);
         }
     };
 
