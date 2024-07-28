@@ -51,54 +51,63 @@ export default function Home() {
                             name: "Small Donation",
                             price: 3,
                             image: MDHeart.src,
+                            loginRequired: false,
                         },
                         {
                             id: 2,
                             name: "Bigger Donation",
                             price: 5,
                             image: MDHeart.src,
+                            loginRequired: false,
                         },
                         {
                             id: 3,
                             name: "Even Bigger Donation",
                             price: 10,
                             image: MDHeart.src,
+                            loginRequired: false,
                         },
                         {
                             id: 4,
                             name: "Huge Donation",
                             price: 50,
                             image: MDHeart.src,
+                            loginRequired: false,
                         },
                         {
                             id: 5,
                             name: "Insane Donation",
                             price: 100,
                             image: MDHeart.src,
+                            loginRequired: false,
                         },
                         {
                             id: 6,
                             name: "Whale tier",
                             price: 500,
                             image: MDHeart.src,
+                            loginRequired: false,
                         },
                         {
                             id: 7,
                             name: "Megawhale tier",
                             price: 1000,
                             image: MDHeart.src,
+                            loginRequired: false,
                         },
                         {
                             id: 8,
                             name: "Kraken tier",
                             price: 2500,
                             image: MDHeart.src,
+                            loginRequired: false,
                         },
                         {
                             id: 9,
                             name: "Elon Musk tier",
                             price: 5000,
                             image: MDHeart.src,
+                            loginRequired: false,
                         },
                     ])}
                 />
@@ -114,12 +123,14 @@ export default function Home() {
                             name: "MikanBot Premium (1 month)",
                             price: 3,
                             image: MDHeart.src,
+                            loginRequired: true,
                         },
                         {
                             id: 8,
                             name: "MikanBot Premium (1 year)",
                             price: 30,
                             image: MDHeart.src,
+                            loginRequired: true,
                         },
                     ])}
                 />

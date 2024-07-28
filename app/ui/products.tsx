@@ -46,6 +46,7 @@ export default function ProdList({ products }) {
         discord: string,
         name: string,
         cid: string,
+        loginRequired: boolean,
     ) => {
         if (status === "loading") {
             return toast.open({
@@ -54,7 +55,7 @@ export default function ProdList({ products }) {
                 type: "info",
             });
         }
-        if (!session) {
+        if (!session && loginRequired) {
             return setOpen(true);
         }
         toast.open({
@@ -74,6 +75,7 @@ export default function ProdList({ products }) {
                 discord: discord,
                 name: name,
                 cid: cid,
+                loginRequired: loginRequired,
             }),
         });
 
@@ -149,6 +151,7 @@ export default function ProdList({ products }) {
                                             session?.user.discord || "",
                                             product.name,
                                             session?.user.id || "",
+                                            product.loginRequired || false,
                                         );
                                     }}
                                     className="w-full text-white bg-primary"

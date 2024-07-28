@@ -18,6 +18,7 @@ export default async function handler(
             success_url: any;
             cancel_url: any;
             cid: any;
+            loginRequired: any;
         };
     },
     res: {
@@ -62,7 +63,7 @@ export default async function handler(
                     cid,
                     id,
                 },
-                customer_email: email,
+                customer_email: email || undefined,
                 success_url: success_url,
                 cancel_url: cancel_url,
             });
