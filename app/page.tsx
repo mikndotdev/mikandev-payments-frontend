@@ -17,13 +17,14 @@ import {
 import ProdList from "./ui/products";
 
 import MDHeart from "@/app/assets/MDHeart.png";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Home() {
     const { data: session, status } = useSession();
     const toast = useToast();
     const searchParams = useSearchParams();
+    const router = useRouter();
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
@@ -35,6 +36,7 @@ export default function Home() {
                     "Something went wrong with your payment. Please try again, or contact support if the issue persists.",
                 type: "error",
             });
+            router.push("/");
         }
     }, [searchParams]);
 
