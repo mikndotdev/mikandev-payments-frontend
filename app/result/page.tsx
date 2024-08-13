@@ -1,18 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
-import {
-    Card,
-    Heading,
-    Button,
-    Center,
-    useToast,
-    ToastProvider,
-    AlertDialog,
-    AlertDialogTitle,
-    AlertDialogFooter,
-    AlertDialogDescription,
-} from "@neodyland/ui";
+import { Card, Heading, Button, Center, useToast } from "@neodyland/ui";
 
 import Loading from "../ui/spinner-mask";
 

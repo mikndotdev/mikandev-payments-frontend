@@ -49,63 +49,63 @@ export default function Home() {
                 <ProdList
                     products={JSON.stringify([
                         {
-                            id: 1,
+                            id: "sm-donation",
                             name: "Small Donation",
                             price: 3,
                             image: MDHeart.src,
                             loginRequired: false,
                         },
                         {
-                            id: 2,
+                            id: "md-donation",
                             name: "Bigger Donation",
                             price: 5,
                             image: MDHeart.src,
                             loginRequired: false,
                         },
                         {
-                            id: 3,
+                            id: "lg-donation",
                             name: "Even Bigger Donation",
                             price: 10,
                             image: MDHeart.src,
                             loginRequired: false,
                         },
                         {
-                            id: 4,
+                            id: "xl-donation",
                             name: "Huge Donation",
                             price: 50,
                             image: MDHeart.src,
                             loginRequired: false,
                         },
                         {
-                            id: 5,
+                            id: "2xl-donation",
                             name: "Insane Donation",
                             price: 100,
                             image: MDHeart.src,
                             loginRequired: false,
                         },
                         {
-                            id: 6,
+                            id: "3xl-donation",
                             name: "Whale tier",
                             price: 500,
                             image: MDHeart.src,
                             loginRequired: false,
                         },
                         {
-                            id: 7,
+                            id: "4xl-donation",
                             name: "Megawhale tier",
                             price: 1000,
                             image: MDHeart.src,
                             loginRequired: false,
                         },
                         {
-                            id: 8,
+                            id: "5xl-donation",
                             name: "Kraken tier",
                             price: 2500,
                             image: MDHeart.src,
                             loginRequired: false,
                         },
                         {
-                            id: 9,
+                            id: "elonmusk-donation",
                             name: "Elon Musk tier",
                             price: 5000,
                             image: MDHeart.src,
@@ -121,18 +121,20 @@ export default function Home() {
                 <ProdList
                     products={JSON.stringify([
                         {
-                            id: 7,
+                            id: "mbp-monthly",
                             name: "MikanBot Premium (1 month)",
                             price: 3,
                             image: MDHeart.src,
                             loginRequired: true,
+                            discordRequired: true,
                         },
                         {
-                            id: 8,
+                            id: "mbp-yearly",
                             name: "MikanBot Premium (1 year)",
                             price: 30,
                             image: MDHeart.src,
                             loginRequired: true,
+                            discordRequired: true,
                         },
                     ])}
                 />

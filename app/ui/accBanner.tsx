@@ -60,10 +60,10 @@ export default function AccBanner() {
                 <Card className="min-w-96 flex justify-between items-center">
                     <div>
                         <Heading size="xl">Hello, {session.user.name}</Heading>
-                        <Heading size="md">UID {session.user.discord}</Heading>
+                        <Heading size="md">UID {session.user.id}</Heading>
                     </div>
                     <Image
-                        src={session.user.image}
+                        src={session.user.image || ""}
                         alt="User Avatar"
                         className="rounded-full"
                         width={75}

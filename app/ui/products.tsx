@@ -43,10 +43,10 @@ export default function ProdList({ products }) {
         id: number,
         price: number,
         email: string,
-        discord: string,
         name: string,
         cid: string,
         loginRequired: boolean,
+        discordRequired: boolean,
     ) => {
         if (status === "loading") {
             return toast.open({
@@ -57,6 +57,14 @@ export default function ProdList({ products }) {
         }
         if (!session && loginRequired) {
             return setOpen(true);
+        }
+        if (!session?.user.discord && discordRequired) {
+            return toast.open({
+                title: "No Discord account found",
+                description:
+                    "You cannot purchase this product without linking a Discord account to your MikanDev account.",
+                type: "error",
+            });
         }
         toast.open({
             title: "Processing payment...",
@@ -72,10 +80,10 @@ export default function ProdList({ products }) {
                 id: id,
                 price: price,
                 email: email,
-                discord: discord,
                 name: name,
                 cid: cid,
                 loginRequired: loginRequired,
+                discordRequired: discordRequired,
             }),
         });
 
@@ -148,10 +156,10 @@ export default function ProdList({ products }) {
                                             product.id,
                                             product.price,
                                             session?.user.email || "",
-                                            session?.user.discord || "",
                                             product.name,
                                             session?.user.id || "",
                                             product.loginRequired || false,
+                                            product.discordRequired || false,
                                         );
                                     }}
                                     className="w-full text-white bg-primary"

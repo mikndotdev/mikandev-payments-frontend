@@ -13,7 +13,6 @@ export default async function handler(
             id: any;
             price: any;
             email: any;
-            discord: any;
             name: any;
             success_url: any;
             cancel_url: any;
@@ -35,7 +34,7 @@ export default async function handler(
     },
 ) {
     if (req.method === "POST") {
-        const { cid, id, price, email, discord, name } = req.body;
+        const { cid, id, price, email, uid, name } = req.body;
 
         const success_url = `${process.env.HOST}/result?cid=${cid}`;
         const cancel_url = `${process.env.HOST}/?canceled=true`;
@@ -58,7 +57,6 @@ export default async function handler(
                 mode: "payment",
                 customer_creation: "always",
                 metadata: {
-                    discord,
                     email,
                     cid,
                     id,
