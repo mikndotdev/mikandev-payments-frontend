@@ -9,8 +9,7 @@ import { useRouter } from "next/navigation";
 
 import MDHeart from "@/app/assets/MDHeart.png";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { cp } from "fs";
+import { useEffect, useState, useRef } from "react";
 
 export default function Success() {
     const { data: session, status } = useSession();
@@ -20,6 +19,7 @@ export default function Success() {
     const [quantity, setQuantity] = useState(0);
     const [price, setPrice] = useState(0);
     const [id, setId] = useState("");
+    const hasValidated = useRef(false);
     const toast = useToast();
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -34,31 +34,30 @@ export default function Success() {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (status === "authenticated") {
+            if (status === "authenticated" && !hasValidated.current) {
+                hasValidated.current = true; // Mark as validated
                 console.log(cid);
                 console.log(session?.user?.discord);
-                const processResponse = await fetch(
-                    `${process.env.NEXT_PUBLIC_PAYMENT_BACKEND}/validate`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            cid: cid,
-                        }),
+                const processResponse = await fetch("/api/validate", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
                     },
-                );
+                    body: JSON.stringify({
+                        cid: cid,
+                    }),
+                });
                 if (processResponse.ok) {
                     const json = await processResponse.json();
                     const prodName = json.prodName;
                     const quantity = json.quantity;
-                    const price = json.price;
+                    const price = json.priceInBucks;
                     const id = json.id;
                     setProdName(prodName);
                     setQuantity(quantity);
                     setPrice(price);
                     setId(id);
+                    setLoading(false);
                 } else {
                     const json = await processResponse.json();
                     const message = json.message;
@@ -97,7 +96,10 @@ export default function Success() {
         };
 
         fetchData();
-    }, [cid, session, status, toast]);
+        setTimeout(() => {
+            router.push("/");
+        }, 10000);
+    }, [status, cid, session, toast]);
 
     useEffect(() => {
         if (!loading && !failed) {
@@ -165,12 +167,10 @@ export default function Success() {
                         </Heading>
                     </Center>
                     <Center>
-                        <Button
-                            onClick={() => router.push("/")}
-                            className="mt-5 text-white bg-primary"
-                        >
-                            Go back
-                        </Button>
+                        <Heading size="sm" className="text-center mt-5">
+                            You will be redirected to the homepage in 10
+                            seconds.
+                        </Heading>
                     </Center>
                 </Card>
             </main>

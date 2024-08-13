@@ -34,7 +34,7 @@ export default async function handler(
     },
 ) {
     if (req.method === "POST") {
-        const { cid, id, price, email, uid, name } = req.body;
+        const { cid, id, price, email, name } = req.body;
 
         const success_url = `${process.env.HOST}/result?cid=${cid}`;
         const cancel_url = `${process.env.HOST}/?canceled=true`;
