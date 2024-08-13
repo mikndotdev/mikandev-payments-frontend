@@ -30,8 +30,8 @@ export default function RootLayout({
                 <script
                     async
                     src="https://analytics.mikandev.tech/script.js"
-                    data-website-id="58744762-f124-4ce3-8ec3-20a9081c196b"
-                ></script>
+                    data-website-id="0b14f82a-e300-4920-8195-5ac2ca8d1161"
+                />
             </body>
         </html>
     );
