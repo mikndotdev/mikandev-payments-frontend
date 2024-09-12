@@ -43,7 +43,7 @@ export default async function handler(
         );
 
         const LogtoResponse = await fetch(
-            "https://account.mikn.dev/oidc/token",
+            "https://auth.mikandev.com/oidc/token",
             {
                 method: "POST",
                 headers: {
@@ -62,7 +62,7 @@ export default async function handler(
         const token = data.access_token;
 
         const userData = await fetch(
-            `https://account.mikn.dev/api/users/${cid}`,
+            `https://auth.mikandev.com/api/users/${cid}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -29,7 +29,7 @@ const authOptions: NextAuthOptions = {
             name: "MikanDev Account",
             type: "oauth",
             wellKnown:
-                "https://account.mikn.dev/oidc/.well-known/openid-configuration",
+                "https://auth.mikandev.com/oidc/.well-known/openid-configuration",
             authorization: {
                 params: {
                     scope: "openid offline_access profile email identities",
@@ -43,7 +43,7 @@ const authOptions: NextAuthOptions = {
             profile: async (profile, tokens) => {
                 try {
                     const userinfoResponse = await fetch(
-                        "https://account.mikn.dev/oidc/me",
+                        "https://auth.mikandev.com/oidc/me",
                         {
                             method: "GET",
                             headers: {

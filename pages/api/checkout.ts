@@ -1,9 +1,8 @@
 // pages/api/create-checkout-session.js
 import { NextApiRequest, NextApiResponse } from "next";
-import Stripe from "stripe";
 
 // Initialize Stripe with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {});
+const apiKey = process.env.LMSQUEEZY_API_KEY || "";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export default async function handler(
@@ -40,36 +39,51 @@ export default async function handler(
         const cancel_url = `${process.env.HOST}/?canceled=true`;
 
         try {
-            // Create a new Checkout Session
-            const session = await stripe.checkout.sessions.create({
-                line_items: [
-                    {
-                        price_data: {
-                            currency: "usd",
-                            product_data: {
-                                name,
-                            },
-                            unit_amount: price * 100,
-                        },
-                        quantity: 1,
-                    },
-                ],
-                mode: "payment",
-                customer_creation: "always",
-                metadata: {
-                    email,
-                    cid,
-                    id,
+            // Create a new Checkout Session using fetch
+            const response = await fetch("https://api.lemonsqueezy.com/v1/checkouts", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json',
+                    'Authorization': `Bearer ${apiKey}`,
                 },
-                customer_email: email || undefined,
-                success_url: success_url,
-                cancel_url: cancel_url,
+                body: JSON.stringify({
+                    data: {
+                        type: "checkouts",
+                        attributes: {
+                            product_options: {
+                                redirect_url: success_url,
+                            },
+                            checkout_data: {
+                                email: email,
+                            },
+                        },
+                        relationships: {
+                            store: {
+                                data: {
+                                    type: "stores",
+                                    id: "115402"
+                                }
+                            },
+                            variant: {
+                                data: {
+                                    type: "variants",
+                                    id: id
+                                }
+                            }
+                        }
+                    }
+                })
             });
 
-            // Return the Checkout Session URL
-            res.status(200).json({ url: session.url });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const session = await response.json();
+            res.status(200).json({ url: session.data?.attributes?.url });
         } catch (error) {
-            console.error("Error creating Stripe Checkout session:", error);
+            console.error("Error creating LemonSqueezy Checkout session:", error);
             res.status(500).json({ error: "Internal Server Error" });
         }
     } else {

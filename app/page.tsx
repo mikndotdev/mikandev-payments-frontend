@@ -49,7 +49,7 @@ export default function Home() {
                 <ProdList
                     products={JSON.stringify([
                         {
-                            id: "mbp-monthly",
+                            id: "519976",
                             name: "MikanBot Premium (1 month)",
                             price: 3,
                             image: MDHeart.src,
@@ -57,7 +57,7 @@ export default function Home() {
                             discordRequired: true,
                         },
                         {
-                            id: "mbp-yearly",
+                            id: "519977",
                             name: "MikanBot Premium (1 year)",
                             price: 30,
                             image: MDHeart.src,
