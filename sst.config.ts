@@ -18,7 +18,7 @@ export default $config({
       const NEXTAUTH_URL = new sst.Secret("NEXTAUTH_URL");
       const STRIPE_SECRET_KEY = new sst.Secret("STRIPE_SECRET_KEY");
       const STRIPE_PUBLIC_KEY = new sst.Secret("STRIPE_PUBLIC_KEY");
-      const LMSQUEEZY_API_KEY = new sst.Secret("LMQUEEZY_API_KEY");
+      const LMSQUEEZY_API_KEY = new sst.Secret("LMSQUEEZY_API_KEY");
       new sst.aws.Nextjs("mikandev-payments", {
           link: [
               LOGTO_CLIENT_SECRET,
