@@ -2,12 +2,16 @@
 
 const nextConfig = {
     images: {
-        loader: "custom",
-        loaderFile: "./loader.ts",
         remotePatterns: [
             {
                 protocol: "https",
                 hostname: "cdn.mikn.dev",
+                port: "",
+                pathname: "/**",
+            },
+            {
+                protocol: "https",
+                hostname: "cdn.mdusercontent.com",
                 port: "",
                 pathname: "/**",
             },
