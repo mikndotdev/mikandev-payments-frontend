@@ -49,6 +49,10 @@ declare module "sst" {
       "type": "sst.sst.Secret"
       "value": string
     }
+    "BOT_API_SIGNING_KEY": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "mikandev-payments": {
       "type": "sst.aws.Nextjs"
       "url": string

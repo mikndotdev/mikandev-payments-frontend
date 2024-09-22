@@ -21,6 +21,7 @@ export default $config({
       const STRIPE_PUBLIC_KEY = new sst.Secret("STRIPE_PUBLIC_KEY");
       const LMSQUEEZY_API_KEY = new sst.Secret("LMSQUEEZY_API_KEY");
       const BOT_BACKEND = new sst.Secret("BOT_BACKEND");
+      const BOT_API_SIGNING_KEY = new sst.Secret("BOT_API_SIGNING_KEY");
       new sst.aws.Nextjs("mikandev-payments", {
           link: [
               LOGTO_CLIENT_SECRET,
@@ -34,6 +35,7 @@ export default $config({
               STRIPE_PUBLIC_KEY,
               LMSQUEEZY_API_KEY,
               BOT_BACKEND,
+              BOT_API_SIGNING_KEY,
           ],
           domain: {
               name: "payments.mikandev.com",
