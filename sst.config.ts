@@ -16,6 +16,7 @@ export default $config({
       const LOGTO_M2M_ID = new sst.Secret("LOGTO_M2M_ID");
       const NEXTAUTH_SECRET = new sst.Secret("NEXTAUTH_SECRET");
       const NEXTAUTH_URL = new sst.Secret("NEXTAUTH_URL");
+      const HOST = new sst.Secret("HOST");
       const STRIPE_SECRET_KEY = new sst.Secret("STRIPE_SECRET_KEY");
       const STRIPE_PUBLIC_KEY = new sst.Secret("STRIPE_PUBLIC_KEY");
       const LMSQUEEZY_API_KEY = new sst.Secret("LMSQUEEZY_API_KEY");
@@ -27,6 +28,7 @@ export default $config({
               LOGTO_M2M_ID,
               NEXTAUTH_SECRET,
               NEXTAUTH_URL,
+              HOST,
               STRIPE_SECRET_KEY,
               STRIPE_PUBLIC_KEY,
               LMSQUEEZY_API_KEY,

@@ -33,6 +33,10 @@ declare module "sst" {
       "type": "sst.sst.Secret"
       "value": string
     }
+    "HOST": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "STRIPE_PUBLIC_KEY": {
       "type": "sst.sst.Secret"
       "value": string
