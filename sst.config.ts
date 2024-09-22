@@ -4,7 +4,7 @@ export default $config({
   app(input) {
       return {
           name: "mikandev-payments",
-          removal: input?.stage === "main" ? "retain" : "remove",
+          removal: input?.stage === "master" ? "retain" : "remove",
           home: "aws",
           providers: { cloudflare: true },
       };
