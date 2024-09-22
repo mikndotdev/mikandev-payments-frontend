@@ -1,8 +1,9 @@
 // pages/api/create-checkout-session.js
 import { NextApiRequest, NextApiResponse } from "next";
+import { Resource } from "sst";
 
 // Initialize Stripe with your secret key
-const apiKey = process.env.LMSQUEEZY_API_KEY || "";
+const apiKey = Resource.LMSQUEEZY_API_KEY.value || "";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export default async function handler(
@@ -35,8 +36,8 @@ export default async function handler(
     if (req.method === "POST") {
         const { cid, id, price, email, name } = req.body;
 
-        const success_url = `${process.env.HOST}/result?cid=${cid}`;
-        const cancel_url = `${process.env.HOST}/?canceled=true`;
+        const success_url = `${Resource.HOST.value}/result?cid=${cid}`;
+        const cancel_url = `${Resource.HOST.value}/?canceled=true`;
 
         try {
             // Create a new Checkout Session using fetch

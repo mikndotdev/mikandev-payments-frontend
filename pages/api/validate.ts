@@ -1,9 +1,10 @@
 // pages/api/create-checkout-session.js
 import type { NextApiRequest, NextApiResponse } from "next";
+import { Resource } from "sst";
 import Stripe from "stripe";
 
 // Initialize Stripe with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {});
+const stripe = new Stripe(Resource.STRIPE_SECRET_KEY.value || "", {});
 
 const sendDiscordMessage = async (
     discordID: string,
@@ -12,7 +13,7 @@ const sendDiscordMessage = async (
     price: number,
 ) => {
     await fetch(
-        `http://${process.env.BOT_BACKEND}/dm?key=${process.env.BOT_API_SIGNING_KEY}`,
+        `http://${Resource.BOT_BACKEND.value}/dm?key=${Resource.BOT_API_SIGNING_KEY.value}`,
         {
             method: "POST",
             headers: {
@@ -32,8 +33,8 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
-    const authID = process.env.LOGTO_M2M_ID;
-    const authSecret = process.env.LOGTO_M2M_SECRET;
+    const authID = Resource.LOGTO_M2M_ID.value;
+    const authSecret = Resource.LOGTO_M2M_SECRET.value;
 
     if (req.method === "POST") {
         const body = req.body;

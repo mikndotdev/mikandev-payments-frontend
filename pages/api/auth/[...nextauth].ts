@@ -1,9 +1,10 @@
 // pages/api/auth/[...nextauth].ts
 import NextAuth from "next-auth";
 import type { NextAuthOptions } from "next-auth";
+import { Resource } from "sst";
 
 const authOptions: NextAuthOptions = {
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: Resource.NEXTAUTH_SECRET.value,
     callbacks: {
         async jwt({ token, profile, account, user }) {
             if (account && profile) {
@@ -35,8 +36,8 @@ const authOptions: NextAuthOptions = {
                     scope: "openid offline_access profile email identities",
                 },
             },
-            clientId: process.env.LOGTO_CLIENT_ID,
-            clientSecret: process.env.LOGTO_CLIENT_SECRET,
+            clientId: Resource.LOGTO_CLIENT_ID.value,
+            clientSecret: Resource.LOGTO_CLIENT_SECRET.value,
             client: {
                 id_token_signed_response_alg: "ES384",
             },
