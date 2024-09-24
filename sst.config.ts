@@ -1,5 +1,7 @@
 /// <reference path="./.sst/platform/config.d.ts" />
 
+import { isProxy } from "util/types";
+
 export default $config({
   app(input) {
       return {
