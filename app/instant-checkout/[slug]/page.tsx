@@ -170,7 +170,7 @@ export default function Home() {
                     </AlertDialogDescription>
                     <Center className="mt-3">
                         <Image
-                            src={session.user.image || ""}
+                            src={session?.user.image || ""}
                             alt="MikanDev"
                             width={80}
                             height={80}

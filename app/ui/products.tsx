@@ -14,7 +14,7 @@ import {
 } from "@neodyland/ui";
 import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useEffect, useState } from "react";
 
 import MikanMascot from "@/app/assets/MikanMascotFull.png";
 import MDAccount from "@/app/assets/MDAccount.png";
@@ -165,7 +165,7 @@ export default function ProdList({ products }) {
                 </div>
             </AlertDialog>
             <Flex direction="row" className="flex-wrap justify-center gap-6">
-                {json.map((product) => (
+                {json.map((product: { id: string, name: string, price: number, image: string }) => (
                     <Card key={product.id} className="w-full sm:w-80 p-4">
                         <Flex direction="col" className="items-center h-full justify-between">
                             <Heading size="xl" className="text-center mb-4">
