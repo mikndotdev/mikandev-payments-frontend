@@ -93,7 +93,7 @@ export default function AccButton({ children }: AccButtonProps) {
                         </Center>
                         <Center>
                             <Image
-                                src={session.user.image}
+                                src={session.user.image || ""}
                                 alt="MikanDev"
                                 width={80}
                                 height={80}
