@@ -52,31 +52,31 @@ const skus = [
     {
         id: "mikanbot-premium-1m",
         processor: "lemonsqueezy",
-        lmid: "519976",
+        lmid: "542220",
         loginRequired: true,
     },
     {
         id: "mikanbot-premium-1y",
         processor: "lemonsqueezy",
-        lmid: "519977",
+        lmid: "542401",
         loginRequired: true,
     },
     {
         id: "sksh-pro-lite",
         processor: "lemonsqueezy",
-        lmid: "542478",
+        lmid: "542402",
         loginRequired: true,
     },
     {
         id: "sksh-pro-std",
         processor: "lemonsqueezy",
-        lmid: "542479",
+        lmid: "542413",
         loginRequired: true,
     },
     {
         id: "sksh-pro-ult",
         processor: "lemonsqueezy",
-        lmid: "542480",
+        lmid: "542416",
         loginRequired: true,
     },
 ];
