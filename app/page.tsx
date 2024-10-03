@@ -70,7 +70,7 @@ export default function Home() {
                 <ProdList
                     products={JSON.stringify([
                         {
-                            id: "skshc-pro-lite",
+                            id: "sksh-pro-lite",
                             name: "Pro Lite",
                             price: 3,
                             image: MDHeart.src,
