@@ -39,51 +39,51 @@ export default function ProdList({ products }) {
 
     const productChunks = chunkArray([...json], 3);
 
-    const purchaseProduct = async (
-        id: number,
-        price: number,
-        email: string,
-        name: string,
-        cid: string,
-        loginRequired: boolean,
-        discordRequired: boolean,
-    ) => {
-        if (status === "loading") {
-            return toast.open({
-                title: "Account verification in progress",
-                description: "Please wait while we verify your login status",
-                type: "info",
-            });
-        }
-        if (!session && loginRequired) {
-            return setOpen(true);
-        }
-        if (!session?.user.discord && discordRequired) {
-            return toast.open({
-                title: "No Discord account found",
-                description:
-                    "You cannot purchase this product without linking a Discord account to your MikanDev account.",
-                type: "error",
-            });
-        }
+    const purchaseStripeProduct = async (email: string, name: string, price: string) => {
         toast.open({
             title: "Processing payment...",
             description: "You will be redirected to the payment page shortly",
             type: "info",
         });
-        const response = await fetch("/api/checkout", {
+        const response = await fetch("/api/checkout/stripe", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                name: name,
+                price: price,
+            }),
+        });
+
+        const data = await response.json();
+        if (data.url) {
+            router.push(data.url);
+        } else {
+            console.error("Failed to create checkout session:", data);
+        }
+    }
+
+    const purchaseLMSProduct = async (
+        id: number,
+        email: string,
+        cid: string,
+    ) => {
+        toast.open({
+            title: "Processing payment...",
+            description: "You will be redirected to the payment page shortly",
+            type: "info",
+        });
+        const response = await fetch("/api/checkout/lemonsqueezy", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 id: id,
-                price: price,
                 email: email,
-                name: name,
                 cid: cid,
-                loginRequired: loginRequired,
-                discordRequired: discordRequired,
             }),
         });
 
@@ -95,82 +95,104 @@ export default function ProdList({ products }) {
         }
     };
 
+    const purchaseProduct = async (id: string) => {
+        if (status === "loading") {
+            return toast.open({
+                title: "Account verification in progress",
+                description: "Please wait while we verify your login status",
+                type: "info",
+            });
+        }
+
+        const sku = await fetch(`/api/skus/?id=${id}`);
+        const product = await sku.json();
+
+        if (product.error) {
+            return toast.open({
+                title: "Product not found",
+                description:
+                    "The product you are trying to purchase does not exist. Please try again later.",
+                type: "error",
+            });
+        }
+
+        if (product.loginRequired && !session) {
+            return setOpen(true);
+        }
+
+        if (product.processor === "lemonsqueezy") {
+            return purchaseLMSProduct(
+                product.lmid,
+                session?.user.email || "",
+                session?.user.id || ""
+            );
+        }
+
+        if (product.processor === "stripe") {
+            return purchaseStripeProduct(
+                session?.user.email || "",
+                product.name,
+                product.price
+            );
+        }
+    };
+
     return (
-        <main>
+        <main className="p-4">
             <AlertDialog open={open} onClose={() => setOpen(false)}>
-                <Center>
-                    <Image
-                        src={MDAccount.src}
-                        alt="MikanDev Logo"
-                        width={240}
-                        height={120}
-                    />
-                </Center>
-                <AlertDialogDescription className="text-center">
-                    Login to access your account
-                </AlertDialogDescription>
-                <Center>
-                    <AlertDialogFooter
-                        actionText="Login with MikanDev Account"
-                        cancelText="Browse as Guest"
-                        actionColor="success"
-                        onAction={() => signIn("logto")}
-                        onCancel={() => setOpen(false)}
-                    />
-                </Center>
+                <div className="p-4">
+                    <Center>
+                        <Image
+                            src={MDAccount.src}
+                            alt="MikanDev Logo"
+                            width={180}
+                            height={90}
+                            className="w-auto h-auto max-w-full"
+                        />
+                    </Center>
+                    <AlertDialogDescription className="text-center mt-4">
+                        Login to access your account
+                    </AlertDialogDescription>
+                    <Center className="mt-4">
+                        <AlertDialogFooter
+                            actionText="Login"
+                            cancelText="Guest"
+                            actionColor="success"
+                            onAction={() => signIn("logto")}
+                            onCancel={() => setOpen(false)}
+                        />
+                    </Center>
+                </div>
             </AlertDialog>
-            {productChunks.map((chunk, chunkIndex) => (
-                // biome-ignore lint/correctness/useJsxKeyInIterable: <explanation>
-                <Center className="mt-3">
-                    <Flex
-                        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-                        key={chunkIndex}
-                        direction="row"
-                        className="items-center mb-4"
-                    >
-                        {chunk.map((product) => (
-                            <Card
-                                key={product.id}
-                                className="min-w-80 min-h-50 mx-2"
+            <Flex direction="row" className="flex-wrap justify-center gap-6">
+                {json.map((product) => (
+                    <Card key={product.id} className="w-full sm:w-80 p-4">
+                        <Flex direction="col" className="items-center h-full justify-between">
+                            <Heading size="xl" className="text-center mb-4">
+                                {product.name}
+                            </Heading>
+                            <div className="flex-grow flex items-center justify-center mb-4">
+                                <Image
+                                    src={product.image || MikanMascot.src}
+                                    alt="Product Image"
+                                    width={200}
+                                    height={200}
+                                    className="w-auto h-auto max-w-full max-h-48 object-contain"
+                                />
+                            </div>
+                            <Heading size="2xl" className="mb-4">
+                                ${product.price}
+                            </Heading>
+                            <Button
+                                onClick={() => purchaseProduct(product.id)}
+                                className="w-full text-white bg-primary"
                             >
-                                <Heading size="xl" className="text-center">
-                                    {product.name}
-                                </Heading>
-                                <Center className="mt-5 mb-5">
-                                    <Image
-                                        src={product.image || MikanMascot.src}
-                                        alt="Product Image"
-                                        width={200}
-                                        height={200}
-                                    />
-                                </Center>
-                                <Heading
-                                    size="2xl"
-                                    className="text-center mt-3 mb-3"
-                                >
-                                    ${product.price}
-                                </Heading>
-                                <Button
-                                    onClick={() => {
-                                        purchaseProduct(
-                                            product.id,
-                                            product.price,
-                                            session?.user.email || "",
-                                            product.name,
-                                            session?.user.id || "",
-                                            product.loginRequired || false,
-                                            product.discordRequired || false,
-                                        );
-                                    }}
-                                    className="w-full text-white bg-primary"
-                                >
-                                    Purchase
-                                </Button>
-                            </Card>
-                        ))}
-                    </Flex>
-                </Center>
-            ))}
+                                Purchase
+                            </Button>
+                        </Flex>
+                    </Card>
+                ))}
+            </Flex>
         </main>
     );
 }

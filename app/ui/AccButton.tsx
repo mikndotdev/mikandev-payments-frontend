@@ -75,38 +75,6 @@ export default function AccButton({ children }: AccButtonProps) {
         }
     };
 
-    useEffect(() => {
-        if (
-            status === "authenticated" &&
-            (!session.user.name ||
-                session.user.image == null ||
-                !session.user.image.startsWith(
-                    "https://cdn.mdusercontent.com/",
-                ))
-        ) {
-            if (searchParams?.get("update") === "true") {
-                update();
-                router.push(window.location.pathname);
-            }
-            if (!pathname?.endsWith("account")) {
-                router.push(
-                    `https://mikn.dev/account?onboarding=true&redirect=${window.location.origin}${pathname}`,
-                );
-            }
-        }
-    }, [status, session, pathname]);
-
-    if (
-        status === "authenticated" &&
-        (!session.user.name ||
-            session.user.image == null ||
-            !session.user.image.startsWith("https://cdn.mdusercontent.com/"))
-    ) {
-        if (pathname?.endsWith("account")) {
-            return null;
-        }
-    }
-
     return (
         <div className="fixed z-50 bottom-10 left-10">
             <AnimatedButton onClick={handleClick} status={status} />

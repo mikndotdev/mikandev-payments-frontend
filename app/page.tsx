@@ -49,21 +49,74 @@ export default function Home() {
                 <ProdList
                     products={JSON.stringify([
                         {
-                            id: "519976",
+                            id: "mikanbot-premium-1m",
                             name: "MikanBot Premium (1 month)",
                             price: 3,
                             image: MDHeart.src,
-                            loginRequired: true,
-                            discordRequired: true,
                         },
                         {
-                            id: "519977",
+                            id: "mikanbot-premium-1y",
                             name: "MikanBot Premium (1 year)",
                             price: 30,
                             image: MDHeart.src,
-                            loginRequired: true,
-                            discordRequired: true,
                         },
+                    ])}
+                />
+            </Card>
+            <Heading size="2xl" className="text-center mt-10">
+                Make a donation (no products will be shipped)
+            </Heading>
+            <Card className="min-w-96 mt-3">
+                <ProdList
+                    products={JSON.stringify([
+                        {
+                            id: "donate-1",
+                            name: "Donate $1",
+                            price: 1,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: "donate-5",
+                            name: "Donate $5",
+                            price: 5,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: "donate-10",
+                            name: "Donate $10",
+                            price: 10,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: "donate-25",
+                            name: "Donate $25",
+                            price: 25,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: "donate-50",
+                            name: "Donate $50",
+                            price: 50,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: "donate-100",
+                            name: "Donate $100",
+                            price: 100,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: "donate-500",
+                            name: "Donate $500",
+                            price: 500,
+                            image: MDHeart.src,
+                        },
+                        {
+                            id: "donate-1000",
+                            name: "Donate $1000",
+                            price: 1000,
+                            image: MDHeart.src,
+                        }
                     ])}
                 />
             </Card>
