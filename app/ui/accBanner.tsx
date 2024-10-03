@@ -85,26 +85,29 @@ export default function AccBanner() {
     return (
         <main>
             <AlertDialog open={open} onClose={() => setOpen(false)}>
-                <Center>
-                    <Image
-                        src={MDAccount.src}
-                        alt="MikanDev Logo"
-                        width={240}
-                        height={120}
-                    />
-                </Center>
-                <AlertDialogDescription className="text-center">
-                    Login to access your account
-                </AlertDialogDescription>
-                <Center>
-                    <AlertDialogFooter
-                        actionText="Login with MikanDev Account"
-                        cancelText="Browse as Guest"
-                        actionColor="success"
-                        onAction={() => signIn("logto")}
-                        onCancel={() => setOpen(false)}
-                    />
-                </Center>
+                <div className="p-4">
+                    <Center>
+                        <Image
+                            src={MDAccount.src}
+                            alt="MikanDev Logo"
+                            width={180}
+                            height={90}
+                            className="w-auto h-auto max-w-full"
+                        />
+                    </Center>
+                    <AlertDialogDescription className="text-center mt-4">
+                        Login to access your account
+                    </AlertDialogDescription>
+                    <Center className="mt-4">
+                        <AlertDialogFooter
+                            actionText="Login"
+                            cancelText="Browse as Guest"
+                            actionColor="success"
+                            onAction={() => signIn("logto")}
+                            onCancel={() => setOpen(false)}
+                        />
+                    </Center>
+                </div>
             </AlertDialog>
             <Card className="min-w-96 flex justify-between items-center">
                 <div>

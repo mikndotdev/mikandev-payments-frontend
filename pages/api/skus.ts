@@ -55,6 +55,30 @@ const skus = [
         lmid: "542220",
         loginRequired: true,
     },
+    {
+        id: "mikanbot-premium-1y",
+        processor: "lemonsqueezy",
+        lmid: "542401",
+        loginRequired: true,
+    },
+    {
+        id: "sksh-pro-lite",
+        processor: "lemonsqueezy",
+        lmid: "542402",
+        loginRequired: true,
+    },
+    {
+        id: "sksh-pro-std",
+        processor: "lemonsqueezy",
+        lmid: "542413",
+        loginRequired: true,
+    },
+    {
+        id: "sksh-pro-ult",
+        processor: "lemonsqueezy",
+        lmid: "542416",
+        loginRequired: true,
+    },
 ];
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {

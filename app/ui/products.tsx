@@ -156,7 +156,7 @@ export default function ProdList({ products }) {
                     <Center className="mt-4">
                         <AlertDialogFooter
                             actionText="Login"
-                            cancelText="Guest"
+                            cancelText="Browse as Guest"
                             actionColor="success"
                             onAction={() => signIn("logto")}
                             onCancel={() => setOpen(false)}
@@ -165,7 +165,7 @@ export default function ProdList({ products }) {
                 </div>
             </AlertDialog>
             <Flex direction="row" className="flex-wrap justify-center gap-6">
-                {json.map((product: { id: string, name: string, price: number, image: string }) => (
+                {json.map((product: { id: string, name: string, price: number, image: string, subscription: boolean }) => (
                     <Card key={product.id} className="w-full sm:w-80 p-4">
                         <Flex direction="col" className="items-center h-full justify-between">
                             <Heading size="xl" className="text-center mb-4">
@@ -180,15 +180,30 @@ export default function ProdList({ products }) {
                                     className="w-auto h-auto max-w-full max-h-48 object-contain"
                                 />
                             </div>
-                            <Heading size="2xl" className="mb-4">
-                                ${product.price}
-                            </Heading>
+                            {product.subscription ? (
+                                <Heading size="2xl" className="text-center mb-4">
+                                    ${product.price} / month
+                                </Heading>
+                            ) : (
+                                <Heading size="2xl" className="text-center mb-4">
+                                    ${product.price}
+                                </Heading>
+                            )}
+                            {product.subscription ? (
+                            <Button
+                                onClick={() => purchaseProduct(product.id)}
+                                className="w-full text-white bg-primary"
+                            >
+                                Subscribe
+                            </Button>
+                            ) : (
                             <Button
                                 onClick={() => purchaseProduct(product.id)}
                                 className="w-full text-white bg-primary"
                             >
                                 Purchase
                             </Button>
+                            )}
                         </Flex>
                     </Card>
                 ))}

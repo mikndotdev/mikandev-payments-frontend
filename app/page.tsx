@@ -43,7 +43,7 @@ export default function Home() {
     return (
         <main className="mt-10">
             <Heading size="2xl" className="text-center mt-10">
-                Premium subscriptions (one time payment)
+                MikanBot Premium (one time payment)
             </Heading>
             <Card className="min-w-96 mt-3">
                 <ProdList
@@ -63,7 +63,37 @@ export default function Home() {
                     ])}
                 />
             </Card>
-            <Heading size="2xl" className="text-center mt-10">
+            <Heading size="2xl" className="text-center mt-10" id="donations">
+                sukushocloud Pro subscriptions
+            </Heading>
+            <Card className="min-w-96 mt-3">
+                <ProdList
+                    products={JSON.stringify([
+                        {
+                            id: "skshc-pro-lite",
+                            name: "Pro Lite",
+                            price: 3,
+                            image: MDHeart.src,
+                            subscription: true,
+                        },
+                        {
+                            id: "sksh-pro-std",
+                            name: "Pro Standard",
+                            price: 6,
+                            image: MDHeart.src,
+                            subscription: true,
+                        },
+                        {
+                            id: "sksh-pro-ult",
+                            name: "Pro Ultra",
+                            price: 12,
+                            image: MDHeart.src,
+                            subscription: true,
+                        },
+                    ])}
+                />
+            </Card>
+            <Heading size="2xl" className="text-center mt-10" id="donations">
                 Make a donation (no products will be shipped)
             </Heading>
             <Card className="min-w-96 mt-3">
