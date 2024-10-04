@@ -4,8 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import {
     Card,
     Heading,
-    Button,
-    Center,
+    Flex,
     useToast,
     ToastProvider,
     AlertDialog,
@@ -14,6 +13,8 @@ import {
     AlertDialogDescription,
 } from "@neodyland/ui";
 
+import { SiStripe, SiLemonsqueezy } from "react-icons/si";
+import { FaLock } from "react-icons/fa";
 import ProdList from "./ui/products";
 
 import MDHeart from "@/app/assets/MDHeart.png";
@@ -150,6 +151,19 @@ export default function Home() {
                     ])}
                 />
             </Card>
+            <Card className="min-w-96 mt-3 mt-10">
+    <Flex direction="row" className="justify-center items-center gap-4">
+        <FaLock className="text-center text-white" size={30} />
+        <Heading size="2xl" className="text-center">
+            Secure payments with
+        </Heading>
+        <SiStripe className="text-center text-white" size={30} />
+        <Heading size="2xl" className="text-center">
+            and
+        </Heading>
+        <SiLemonsqueezy className="text-center text-white" size={30} />
+    </Flex>
+</Card>
         </main>
     );
 }

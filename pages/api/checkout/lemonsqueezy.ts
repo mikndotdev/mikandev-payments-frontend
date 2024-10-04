@@ -7,6 +7,7 @@ import {
     type Checkout,
     createCheckout,
 } from "@lemonsqueezy/lemonsqueezy.js";
+import { getServerSession } from "next-auth";
 
 // Initialize Stripe with your secret key
 const apiKey = process.env.LMSQUEEZY_API_KEY || "";
@@ -17,13 +18,20 @@ lemonSqueezySetup({
 });
 
 export default async function handler(
-    req: { method: string; body: { cid: string; id: string; email: string } },
+    req: NextApiRequest,
     res: NextApiResponse,
 ) {
     if (req.method === "POST") {
-        const { id, email, cid } = req.body;
+        const { id } = req.body;
+        const session = await getServerSession();
 
-        console.log (cid, id, email);
+        if (!session) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
+
+        const cid = session.user.id;
+        const email = session.user.email;
 
         const success_url = `${process.env.HOST}/result?cid=${cid}`;
 
@@ -42,8 +50,12 @@ export default async function handler(
             preview: true,
         };
 
-        const { statusCode, error, data } = await createCheckout(storeId, id, newCheckout);
-        
+        const { statusCode, error, data } = await createCheckout(
+            storeId,
+            id,
+            newCheckout,
+        );
+
         if (statusCode === 200) {
             console.error(
                 "Error creating LemonSqueezy Checkout session:",

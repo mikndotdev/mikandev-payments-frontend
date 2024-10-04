@@ -14,7 +14,16 @@ import {
 } from "@neodyland/ui";
 import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
-import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useEffect, useState } from "react";
+import {
+    AwaitedReactNode,
+    JSXElementConstructor,
+    Key,
+    ReactElement,
+    ReactNode,
+    ReactPortal,
+    useEffect,
+    useState,
+} from "react";
 
 import MikanMascot from "@/app/assets/MikanMascotFull.png";
 import MDAccount from "@/app/assets/MDAccount.png";
@@ -39,7 +48,11 @@ export default function ProdList({ products }) {
 
     const productChunks = chunkArray([...json], 3);
 
-    const purchaseStripeProduct = async (email: string, name: string, price: string) => {
+    const purchaseStripeProduct = async (
+        email: string,
+        name: string,
+        price: string,
+    ) => {
         toast.open({
             title: "Processing payment...",
             description: "You will be redirected to the payment page shortly",
@@ -63,13 +76,9 @@ export default function ProdList({ products }) {
         } else {
             console.error("Failed to create checkout session:", data);
         }
-    }
+    };
 
-    const purchaseLMSProduct = async (
-        id: number,
-        email: string,
-        cid: string,
-    ) => {
+    const purchaseLMSProduct = async (id: number) => {
         toast.open({
             title: "Processing payment...",
             description: "You will be redirected to the payment page shortly",
@@ -82,8 +91,6 @@ export default function ProdList({ products }) {
             },
             body: JSON.stringify({
                 id: id,
-                email: email,
-                cid: cid,
             }),
         });
 
@@ -121,18 +128,14 @@ export default function ProdList({ products }) {
         }
 
         if (product.processor === "lemonsqueezy") {
-            return purchaseLMSProduct(
-                product.lmid,
-                session?.user.email || "",
-                session?.user.id || ""
-            );
+            return purchaseLMSProduct(product.lmid);
         }
 
         if (product.processor === "stripe") {
             return purchaseStripeProduct(
                 session?.user.email || "",
                 product.name,
-                product.price
+                product.price,
             );
         }
     };
@@ -165,48 +168,69 @@ export default function ProdList({ products }) {
                 </div>
             </AlertDialog>
             <Flex direction="row" className="flex-wrap justify-center gap-6">
-                {json.map((product: { id: string, name: string, price: number, image: string, subscription: boolean }) => (
-                    <Card key={product.id} className="w-full sm:w-80 p-4">
-                        <Flex direction="col" className="items-center h-full justify-between">
-                            <Heading size="xl" className="text-center mb-4">
-                                {product.name}
-                            </Heading>
-                            <div className="flex-grow flex items-center justify-center mb-4">
-                                <Image
-                                    src={product.image || MikanMascot.src}
-                                    alt="Product Image"
-                                    width={200}
-                                    height={200}
-                                    className="w-auto h-auto max-w-full max-h-48 object-contain"
-                                />
-                            </div>
-                            {product.subscription ? (
-                                <Heading size="2xl" className="text-center mb-4">
-                                    ${product.price} / month
-                                </Heading>
-                            ) : (
-                                <Heading size="2xl" className="text-center mb-4">
-                                    ${product.price}
-                                </Heading>
-                            )}
-                            {product.subscription ? (
-                            <Button
-                                onClick={() => purchaseProduct(product.id)}
-                                className="w-full text-white bg-primary"
+                {json.map(
+                    (product: {
+                        id: string;
+                        name: string;
+                        price: number;
+                        image: string;
+                        subscription: boolean;
+                    }) => (
+                        <Card key={product.id} className="w-full sm:w-80 p-4">
+                            <Flex
+                                direction="col"
+                                className="items-center h-full justify-between"
                             >
-                                Subscribe
-                            </Button>
-                            ) : (
-                            <Button
-                                onClick={() => purchaseProduct(product.id)}
-                                className="w-full text-white bg-primary"
-                            >
-                                Purchase
-                            </Button>
-                            )}
-                        </Flex>
-                    </Card>
-                ))}
+                                <Heading size="xl" className="text-center mb-4">
+                                    {product.name}
+                                </Heading>
+                                <div className="flex-grow flex items-center justify-center mb-4">
+                                    <Image
+                                        src={product.image || MikanMascot.src}
+                                        alt="Product Image"
+                                        width={200}
+                                        height={200}
+                                        className="w-auto h-auto max-w-full max-h-48 object-contain"
+                                    />
+                                </div>
+                                {product.subscription ? (
+                                    <Heading
+                                        size="2xl"
+                                        className="text-center mb-4"
+                                    >
+                                        ${product.price} / month
+                                    </Heading>
+                                ) : (
+                                    <Heading
+                                        size="2xl"
+                                        className="text-center mb-4"
+                                    >
+                                        ${product.price}
+                                    </Heading>
+                                )}
+                                {product.subscription ? (
+                                    <Button
+                                        onClick={() =>
+                                            purchaseProduct(product.id)
+                                        }
+                                        className="w-full text-white bg-primary"
+                                    >
+                                        Subscribe
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        onClick={() =>
+                                            purchaseProduct(product.id)
+                                        }
+                                        className="w-full text-white bg-primary"
+                                    >
+                                        Purchase
+                                    </Button>
+                                )}
+                            </Flex>
+                        </Card>
+                    ),
+                )}
             </Flex>
         </main>
     );

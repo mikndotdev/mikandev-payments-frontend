@@ -32,7 +32,7 @@ export default function Home() {
     const [confirmOpen, setConfirmOpen] = useState(true);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => { 
+    useEffect(() => {
         if (status !== "loading") {
             setLoading(false);
         }
@@ -46,11 +46,7 @@ export default function Home() {
         }
     }, [status]);
 
-    const purchaseLMSProduct = async (
-        id: number,
-        email: string,
-        cid: string,
-    ) => {
+    const purchaseLMSProduct = async (id: number) => {
         toast.open({
             title: "Processing payment...",
             description: "You will be redirected to the payment page shortly",
@@ -63,8 +59,6 @@ export default function Home() {
             },
             body: JSON.stringify({
                 id: id,
-                email: email,
-                cid: cid,
             }),
         });
 
@@ -75,7 +69,6 @@ export default function Home() {
             console.error("Failed to create checkout session:", data);
         }
     };
-
 
     const completePurchase = async () => {
         const id = pathname?.split("/")[2];
@@ -98,11 +91,7 @@ export default function Home() {
         if (product.processor === "lemonsqueezy") {
             setLoading(true);
             setConfirmOpen(false);
-            return purchaseLMSProduct(
-                product.lmid,
-                session?.user.email || "",
-                session?.user.id || ""
-            );
+            return purchaseLMSProduct(product.lmid);
         }
 
         if (product.processor === "stripe") {
@@ -119,8 +108,6 @@ export default function Home() {
         }
     };
 
-
-
     if (loading) {
         return (
             <main className="mt-10">
@@ -129,7 +116,10 @@ export default function Home() {
                         Loading...
                     </Heading>
                     <Center>
-                        <AiOutlineLoading3Quarters className="mt-10 text-primary animate-spin" size={100} />
+                        <AiOutlineLoading3Quarters
+                            className="mt-10 text-primary animate-spin"
+                            size={100}
+                        />
                     </Center>
                 </Card>
             </main>
@@ -166,7 +156,8 @@ export default function Home() {
             <AlertDialog open={confirmOpen} onClose={() => null}>
                 <div className="p-4">
                     <AlertDialogDescription className="text-center mt-4 text-sm">
-                        You are about to make a purchase on the following account:
+                        You are about to make a purchase on the following
+                        account:
                     </AlertDialogDescription>
                     <Center className="mt-3">
                         <Image
@@ -197,11 +188,10 @@ export default function Home() {
                 </div>
             </AlertDialog>
             <Card className="min-w-96 mt-3">
-                    <Heading size="4xl" className="text-center">
-                        Awaiting confirmation...
-                    </Heading>
-                </Card>
+                <Heading size="4xl" className="text-center">
+                    Awaiting confirmation...
+                </Heading>
+            </Card>
         </main>
     );
-
 }
