@@ -2,7 +2,7 @@
 import NextAuth from "next-auth";
 import type { AuthOptions } from "next-auth";
 
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, profile, account, user }) {

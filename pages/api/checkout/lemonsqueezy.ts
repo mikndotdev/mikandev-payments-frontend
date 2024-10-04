@@ -8,6 +8,7 @@ import {
     createCheckout,
 } from "@lemonsqueezy/lemonsqueezy.js";
 import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
 // Initialize Stripe with your secret key
 const apiKey = process.env.LMSQUEEZY_API_KEY || "";
@@ -23,7 +24,7 @@ export default async function handler(
 ) {
     if (req.method === "POST") {
         const { id } = req.body;
-        const session = await getServerSession();
+        const session = await getServerSession(req, res, authOptions);
 
         if (!session) {
             res.status(401).json({ error: "Unauthorized" });
