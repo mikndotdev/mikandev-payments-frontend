@@ -46,7 +46,11 @@ export default async function handler(
             },
             checkoutData: {
                 email: email,
+                custom: {
+                    cid: session.user.id,
+                },
             },
+            
             expiresAt: null,
             preview: true,
         };
