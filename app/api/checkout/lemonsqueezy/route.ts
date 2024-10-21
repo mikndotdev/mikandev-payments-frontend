@@ -1,5 +1,6 @@
 // app/api/create-checkout-session/route.ts
 export const runtime = "edge";
+
 import { NextRequest, NextResponse } from "next/server";
 import {
     getAuthenticatedUser,
@@ -46,14 +47,24 @@ export async function POST(req: NextRequest) {
         preview: true,
     };
 
-    const { statusCode, error, data } = await createCheckout(storeId, id, newCheckout);
+    const { statusCode, error, data } = await createCheckout(
+        storeId,
+        id,
+        newCheckout,
+    );
 
     if (error) {
         console.error("Error creating LemonSqueezy Checkout session:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+        return NextResponse.json(
+            { error: "Internal Server Error" },
+            { status: 500 },
+        );
     }
 
-    return NextResponse.json({ url: data?.data?.attributes?.url }, { status: 200 });
+    return NextResponse.json(
+        { url: data?.data?.attributes?.url },
+        { status: 200 },
+    );
 }
 
 export async function OPTIONS() {

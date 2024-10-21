@@ -1,5 +1,6 @@
 // app/api/skus/route.ts
 export const runtime = "edge";
+
 import { NextRequest, NextResponse } from "next/server";
 
 const skus = [
