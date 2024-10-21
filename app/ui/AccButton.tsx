@@ -98,6 +98,7 @@ export default function AccButton({ children }: AccButtonProps) {
                                 width={80}
                                 height={80}
                                 className="rounded-full"
+                                unoptimized
                             />
                         </Center>
                         <Center className="mt-5">

@@ -167,6 +167,7 @@ export default function Home() {
                             width={80}
                             height={80}
                             className="rounded-full"
+                            unoptimized
                         />
                     </Center>
                     <Center className="mt-4">

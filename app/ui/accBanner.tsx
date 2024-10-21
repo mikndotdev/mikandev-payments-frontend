@@ -68,6 +68,7 @@ export default function AccBanner() {
                         className="rounded-full"
                         width={75}
                         height={75}
+                        unoptimized
                     />
                 </Card>
                 <Card className="min-w-96 mt-5">
