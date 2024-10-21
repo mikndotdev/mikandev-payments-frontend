@@ -1,30 +1,19 @@
-"use client";
+const normalizeSrc = (src: string) => {
+    return src.startsWith("/") ? src.slice(1) : src;
+};
 
-export default function myImageLoader({
+export default function cloudflareLoader({
     src,
     width,
     quality,
-}: { src: string; width?: string; quality?: string }) {
-    const isLocal = !src.startsWith("http");
-    const isUserContent = src.includes("mdusercontent.com");
-    const query = new URLSearchParams();
-
-    const imageOptimizationApi = "https://i.mikandev.com/image";
-    const baseUrl = "https://payments.mikandev.com";
-
-    const fullSrc = `${baseUrl}${src}`;
-
-    if (width) query.set("width", width);
-    if (quality) query.set("quality", quality);
-
-    if (isLocal && process.env.NODE_ENV === "development") {
+}: { src: string; width: number; quality?: number }) {
+    if (process.env.NODE_ENV === "development") {
         return src;
     }
-    if (isLocal) {
-        return `${imageOptimizationApi}/${fullSrc}?${query.toString()}`;
+    const params = [`width=${width}`];
+    if (quality) {
+        params.push(`quality=${quality}`);
     }
-    if (isUserContent) {
-        return src;
-    }
-    return `${imageOptimizationApi}/${src}?${query.toString()}`;
+    const paramsString = params.join(",");
+    return `/cdn-cgi/image/${paramsString}/${normalizeSrc(src)}`;
 }

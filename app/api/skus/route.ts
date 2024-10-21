@@ -1,4 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+// app/api/skus/route.ts
+export const runtime = "edge";
+import { NextRequest, NextResponse } from "next/server";
 
 const skus = [
     {
@@ -81,13 +83,19 @@ const skus = [
     },
 ];
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { id } = req.query;
+export async function GET(req: NextRequest) {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+        return NextResponse.json({ error: "ID is required" }, { status: 400 });
+    }
+
     const sku = skus.find((sku) => sku.id === id);
 
     if (!sku) {
-        return res.status(404).json({ error: "SKU not found" });
+        return NextResponse.json({ error: "SKU not found" }, { status: 404 });
     }
 
-    res.status(200).json(sku);
+    return NextResponse.json(sku, { status: 200 });
 }

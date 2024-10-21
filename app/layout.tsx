@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import localFont from "next/font/local";
-import ClientSessionProvider from "@/app/lib/session";
+import { SessionProvider } from "next-auth/react";
 import AccButton from "./ui/AccButton";
 import "./globals.css";
 
@@ -23,10 +23,10 @@ export default function RootLayout({
             lang={headers().get("x-locale")?.split("-")[0]}
         >
             <body>
-                <ClientSessionProvider>
+                <SessionProvider>
                     {children}
                     <AccButton />
-                </ClientSessionProvider>
+                </SessionProvider>
                 <script
                     async
                     src="https://analytics.mikandev.tech/script.js"

@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+export const runtime = "edge";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Card, Heading, Button, Center, useToast } from "@neodyland/ui";
 
@@ -37,7 +37,6 @@ export default function Success() {
             if (status === "authenticated" && !hasValidated.current) {
                 hasValidated.current = true; // Mark as validated
                 console.log(cid);
-                console.log(session?.user?.discord);
                 const processResponse = await fetch("/api/validate", {
                     method: "POST",
                     headers: {

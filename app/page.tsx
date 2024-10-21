@@ -1,4 +1,5 @@
 "use client";
+export const runtime = "edge";
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 import {
@@ -94,76 +95,21 @@ export default function Home() {
                     ])}
                 />
             </Card>
-            <Heading size="2xl" className="text-center mt-10" id="donations">
-                Make a donation (no products will be shipped)
-            </Heading>
-            <Card className="min-w-96 mt-3">
-                <ProdList
-                    products={JSON.stringify([
-                        {
-                            id: "donate-1",
-                            name: "Donate $1",
-                            price: 1,
-                            image: MDHeart.src,
-                        },
-                        {
-                            id: "donate-5",
-                            name: "Donate $5",
-                            price: 5,
-                            image: MDHeart.src,
-                        },
-                        {
-                            id: "donate-10",
-                            name: "Donate $10",
-                            price: 10,
-                            image: MDHeart.src,
-                        },
-                        {
-                            id: "donate-25",
-                            name: "Donate $25",
-                            price: 25,
-                            image: MDHeart.src,
-                        },
-                        {
-                            id: "donate-50",
-                            name: "Donate $50",
-                            price: 50,
-                            image: MDHeart.src,
-                        },
-                        {
-                            id: "donate-100",
-                            name: "Donate $100",
-                            price: 100,
-                            image: MDHeart.src,
-                        },
-                        {
-                            id: "donate-500",
-                            name: "Donate $500",
-                            price: 500,
-                            image: MDHeart.src,
-                        },
-                        {
-                            id: "donate-1000",
-                            name: "Donate $1000",
-                            price: 1000,
-                            image: MDHeart.src,
-                        }
-                    ])}
-                />
-            </Card>
             <Card className="min-w-96 mt-3 mt-10">
-    <Flex direction="row" className="justify-center items-center gap-4">
-        <FaLock className="text-center text-white" size={30} />
-        <Heading size="2xl" className="text-center">
-            Secure payments with
-        </Heading>
-        <SiStripe className="text-center text-white" size={30} />
-        <Heading size="2xl" className="text-center">
-            and
-        </Heading>
-        <SiLemonsqueezy className="text-center text-white" size={30} />
-    </Flex>
-</Card>
+                <Flex
+                    direction="row"
+                    className="justify-center items-center gap-4"
+                >
+                    <FaLock className="text-center text-white" size={30} />
+                    <Heading size="2xl" className="text-center">
+                        Secure payments with
+                    </Heading>
+                    <SiLemonsqueezy
+                        className="text-center text-white"
+                        size={30}
+                    />
+                </Flex>
+            </Card>
         </main>
     );
 }
