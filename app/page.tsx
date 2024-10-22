@@ -88,7 +88,7 @@ export default function Home() {
                         {
                             id: "sksh-pro-ult",
                             name: "Pro Ultra",
-                            price: 12,
+                            price: 9,
                             image: MDHeart.src,
                             subscription: true,
                         },
