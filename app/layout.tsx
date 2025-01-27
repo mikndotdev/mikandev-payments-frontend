@@ -21,7 +21,7 @@ export default async function RootLayout({
     return (
         <html
             className={hsr.className}
-            lang={await headers().get("x-locale")?.split("-")[0]}
+            lang="en"
         >
             <body>
                 <SessionProvider>
