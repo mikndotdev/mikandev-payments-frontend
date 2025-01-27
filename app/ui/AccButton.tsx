@@ -1,10 +1,9 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { Heading, Center, Flex } from "@neodyland/ui";
 
 import mikan from "@/app/assets/mikan.png";
 import { PiSpinnerBold } from "react-icons/pi";
@@ -14,9 +13,9 @@ interface AccButtonProps {
 }
 
 const AnimatedButton = ({
-    onClick,
-    status,
-}: {
+                            onClick,
+                            status,
+                        }: {
     onClick: () => void;
     status: "authenticated" | "loading" | "unauthenticated";
 }) => {
@@ -75,6 +74,12 @@ export default function AccButton({ children }: AccButtonProps) {
         }
     };
 
+    useEffect(() => {
+        if (searchParams?.get("update") === "true") {
+            update();
+        }
+    }, [searchParams, session]);
+
     return (
         <div className="fixed z-50 bottom-10 left-10">
             <AnimatedButton onClick={handleClick} status={status} />
@@ -86,39 +91,36 @@ export default function AccButton({ children }: AccButtonProps) {
                         exit={{ opacity: 0, y: 7 }}
                         className="absolute bottom-full mb-5 bg-white shadow-lg rounded-lg p-4 w-80"
                     >
-                        <Center>
-                            <Heading size="md" className="text-primary mb-5">
+                        <div className="flex justify-center">
+                            <h2 className="text-primary mb-5 text-md">
                                 MikanDev Account
-                            </Heading>
-                        </Center>
-                        <Center>
+                            </h2>
+                        </div>
+                        <div className="flex justify-center">
                             <Image
-                                src={session?.user.image || ""}
+                                //@ts-ignore
+                                src={session?.user?.image}
                                 alt="MikanDev"
                                 width={80}
                                 height={80}
                                 className="rounded-full"
-                                unoptimized
                             />
-                        </Center>
-                        <Center className="mt-5">
-                            <Heading size="sm" className="text-primary">
-                                {session.user.name}
-                            </Heading>
-                        </Center>
-                        <Center>
-                            <Heading
-                                size="sm"
-                                className="text-primary mt-2 mb-5"
-                            >
-                                UID {session.user.id}
-                            </Heading>
-                        </Center>
+                        </div>
+                        <div className="flex justify-center mt-5">
+                            <h3 className="text-primary text-sm">
+                                {session?.user?.name}
+                            </h3>
+                        </div>
+                        <div className="flex justify-center">
+                            <h3 className="text-primary mt-2 mb-5 text-sm">
+                                UID {session?.user?.id}
+                            </h3>
+                        </div>
                         <ul>
                             <li
                                 className="cursor-pointer hover:bg-gray-100 p-2 rounded"
                                 onClick={() =>
-                                    router.push("https://mikn.dev/account")
+                                    router.push("https://my.mikandev.com/init?url=https://mikn.dev")
                                 }
                             >
                                 Profile
