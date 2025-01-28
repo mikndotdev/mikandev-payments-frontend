@@ -61,9 +61,7 @@ export const ConfirmationModal = ({ product }: ProductModalProps) => {
                         className="w-16 h-16 rounded-full"
                     />
                     <div className="flex flex-col space-y-1">
-                        <p className="text-white text-xl">
-                            {data?.user?.name}
-                        </p>
+                        <p className="text-white text-xl">{data?.user?.name}</p>
                         <p className="text-white text-sm">
                             UID {data?.user?.id}
                         </p>
@@ -81,9 +79,10 @@ export const ConfirmationModal = ({ product }: ProductModalProps) => {
                         className="btn btn-info text-white"
                         onClick={() => handleBuy(product.id)}
                     >
-                        {loading ? ( <span className="loading loading-spinner" />
+                        {loading ? (
+                            <span className="loading loading-spinner" />
                         ) : (
-                        <PiCreditCardBold className="text-white w-5 h-5" />
+                            <PiCreditCardBold className="text-white w-5 h-5" />
                         )}
                         Continue with Payment
                     </button>

@@ -47,23 +47,25 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     }, [firstPrice]);
 
     return (
-        <div className="card bg-surface bg-opacity-10 text-on-surface shadow min-h-96 w-2/5">
-            <div className="flex flex-col items-center justify-between">
-                <h1 className="text-3xl text-white mt-5">{product.name}</h1>
-                <p className="text-neutral-400 text-sm mt-3">
+        <div className="card bg-surface bg-opacity-10 text-on-surface shadow min-h-[360px] w-full sm:w-[45%] md:w-2/5">
+            <div className="flex flex-col items-center justify-between h-full p-4 sm:p-0">
+                <h1 className="text-2xl sm:text-3xl text-white mt-2 sm:mt-5 text-center">
+                    {product.name}
+                </h1>
+                <p className="text-neutral-400 text-sm mt-2 sm:mt-3 px-2 text-center">
                     {product.description}
                 </p>
                 <img
                     src={product.medias[0].publicUrl}
                     alt={product.description || ""}
                     width={200}
-                    className={"w-3/4 mt-5"}
+                    className="w-11/12 sm:w-3/4 mt-3 sm:mt-5 object-cover"
                 />
-                <h2 className={"text-white text-2xl mt-3"}>
+                <h2 className="text-white text-xl sm:text-2xl mt-2 sm:mt-3">
                     {price} {subsc && "monthly"}
                 </h2>
                 <button
-                    className="btn btn-primary mt-5 mb-5 w-3/4 text-white"
+                    className="btn btn-primary mt-3 sm:mt-5 mb-2 sm:mb-5 w-11/12 sm:w-3/4 text-white"
                     onClick={() => handleBuy(product.id)}
                 >
                     {loading && <span className="loading loading-spinner" />}
