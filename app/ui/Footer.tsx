@@ -41,9 +41,7 @@ export const Footer: React.FC<FooterProps> = ({
             >
                 <div
                     style={{
-                        gridTemplateColumns: `repeat(${
-                            links.length + 1
-                        }, minmax(0, 1fr))`,
+                        gridTemplateColumns: `repeat(${links.length + 1}, minmax(0, 1fr))`,
                     }}
                     className="flex flex-col gap-4 px-4 pb-4 pt-7 lg:grid lg:gap-0 lg:px-0 lg:pb-7 lg:pt-9"
                 >
