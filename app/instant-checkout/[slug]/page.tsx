@@ -1,14 +1,7 @@
-import {useEffect, useState} from "react";
-
 export const runtime = "edge";
 import { auth, signIn, signOut } from "@/auth";
 import { api } from "@/polar";
 import { notFound } from "next/navigation";
-import { toast } from "sonner";
-import { createPayment } from "@/app/ui/payments/createPayment";
-import { PolarEmbedCheckout } from "@polar-sh/checkout/embed";
-
-import { FaSignOutAlt } from "react-icons/fa";
 
 export default async function Page({
                                        params,
