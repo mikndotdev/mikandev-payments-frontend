@@ -1,11 +1,12 @@
 export const runtime = "edge";
-import { auth, signIn, signOut } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { api } from "@/polar";
 import { notFound } from "next/navigation";
+import { ConfirmationModal } from "@/app/ui/payments/confirmationModal";
 
 export default async function Page({
-                                       params,
-                                   }: {
+    params,
+}: {
     params: Promise<{ slug: string }>;
 }) {
     const { slug: id } = await params;
@@ -22,6 +23,7 @@ export default async function Page({
 
         return (
             <div>
+                <ConfirmationModal product={result} />
             </div>
         );
     } catch (e) {
