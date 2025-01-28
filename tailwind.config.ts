@@ -24,6 +24,10 @@ const config: Config = {
                 "on-primary": "#ffffff",
                 secondary: "#ff7700",
                 "on-secondary": "#ffffff",
+                tertiary: "#2d1800",
+                "on-tertiary": "#ffffff",
+                surface: "#ffffff",
+                "on-surface": "#0A1014",
             },
             animation: {
                 marquee: "marquee var(--duration) linear infinite",

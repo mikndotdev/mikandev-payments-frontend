@@ -24,7 +24,7 @@ export default async function RootLayout({
                 <SessionProvider>
                     {children}
                     <AccButton />
-                    <Toaster />
+                    <Toaster richColors />
                 </SessionProvider>
             </body>
         </html>
