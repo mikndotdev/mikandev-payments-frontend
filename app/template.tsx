@@ -5,6 +5,7 @@ import Image from "next/image";
 import mikanLogo from "./assets/mikandev-circle.webp";
 import MikanCat from "./assets/mikan-cat.png";
 import { useRouter, usePathname } from "next/navigation";
+import { useSwetrix } from '@swetrix/nextjs'
 import CookieConsent from "react-cookie-consent";
 
 import { FaDiscord, FaGithub, FaTwitter, FaYoutube } from "react-icons/fa";
@@ -15,6 +16,10 @@ export default function RootLayout({
 }: { children: React.ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
+
+    useSwetrix("VEi3stPi8aiv", {
+        apiURL: 'https://analytics.mikandev.tech/log',
+    })
 
     const changeLanguage = () => {
         //@ts-ignore
