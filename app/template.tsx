@@ -1,9 +1,9 @@
 "use client";
-import { Header, Footer, ToastProvider, useToast } from "@neodyland/ui";
-import AccBanner from "./ui/accBanner";
+import { Header } from "@/app/ui/Header";
+import { Footer } from "@/app/ui/Footer";
 import Image from "next/image";
 import mikanLogo from "./assets/mikandev-circle.webp";
-import mikanMascot from "./assets/MikanMascotFull.png";
+import MikanCat from "./assets/mikan-cat.png";
 import { useRouter, usePathname } from "next/navigation";
 import CookieConsent from "react-cookie-consent";
 
@@ -142,35 +142,35 @@ export default function RootLayout({
                 }}
             />
             <div className="mx-auto min-h-screen max-w-7xl px-4 py-24">
-                <AccBanner />
-                <ToastProvider>
-                    {children}
-                    <CookieConsent
-                        location="bottom"
-                        buttonText="Yum! 🍪"
-                        cookieName="CookieConsent"
-                        style={{ background: "#ff9900" }}
-                        buttonStyle={{ color: "#261800", fontSize: "13px" }}
-                        expires={150}
-                    >
-                        We use cookies to enhance your experience. Would you
-                        like some?
-                    </CookieConsent>
-                </ToastProvider>
+                {children}
+                <CookieConsent
+                    location="bottom"
+                    buttonText="Yum! 🍪"
+                    cookieName="CookieConsent"
+                    style={{ background: "#ff9900" }}
+                    buttonStyle={{ color: "#261800", fontSize: "13px" }}
+                    expires={150}
+                >
+                    We use cookies to enhance your experience. Would you like
+                    some?
+                </CookieConsent>
             </div>
             <Footer
                 social={social}
                 links={links}
-                copylight="2020-2024 MikanDev"
+                copylight={`2020-${new Date().getFullYear()} MikanDev`}
+                className="text-white font-thin bg-primary"
             >
                 <div className="flex items-center self-end">
-                    <Image
-                        src={mikanMascot.src}
-                        width={200}
-                        height={100}
-                        alt="MikanDev Tech"
-                        className="ml-2 mb-0"
-                    />
+                    <div className="tooltip tooltip-warning" data-tip=":3">
+                        <Image
+                            src={MikanCat.src}
+                            width={200}
+                            height={100}
+                            alt="MikanDev Cat"
+                            className="ml-2 mb-0"
+                        />
+                    </div>
                 </div>
             </Footer>
         </>
