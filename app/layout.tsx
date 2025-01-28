@@ -19,10 +19,7 @@ export default async function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html
-            className={hsr.className}
-            lang="en"
-        >
+        <html className={hsr.className} lang="en">
             <body>
                 <SessionProvider>
                     {children}

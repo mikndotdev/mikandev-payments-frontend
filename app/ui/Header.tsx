@@ -104,11 +104,11 @@ interface MobileMenuItemProps {
 }
 
 const MobileMenuItem: React.FC<MobileMenuItemProps> = ({
-                                                           name,
-                                                           href,
-                                                           color,
-                                                           isCurrent,
-                                                       }) => {
+    name,
+    href,
+    color,
+    isCurrent,
+}) => {
     return (
         <motion.li className="font-semibold" variants={mobileMenuItemVariants}>
             <a
@@ -217,8 +217,8 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                         />
                         {brand.showTitle && (
                             <span className="text-xl font-semibold text-on-background lg:text-base">
-								{brand.name}
-							</span>
+                                {brand.name}
+                            </span>
                         )}
                     </Link>
 
@@ -235,7 +235,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                                     color ||
                                     (generateItemColors(navigation.length)[
                                         index
-                                        ] as string);
+                                    ] as string);
                                 const isCurrent =
                                     (typeof current === "string" &&
                                         item.href === current) ||
@@ -295,7 +295,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                                 color ||
                                 (generateItemColors(navigation.length)[
                                     index
-                                    ] as string);
+                                ] as string);
                             const isCurrent =
                                 (typeof current === "string" &&
                                     item.href === current) ||
@@ -313,17 +313,17 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                                     {item.name}
                                     {isCurrent ? (
                                         <span className="absolute inset-x-0 -bottom-1.5 flex h-1 w-full items-center justify-center">
-											<span
+                                            <span
                                                 style={{ background: _color }}
                                                 className="h-[3px] w-3 rounded-full"
                                             />
-										</span>
+                                        </span>
                                     ) : (
                                         <motion.span
                                             className="absolute inset-x-0 -bottom-1.5 hidden h-1 w-full items-center justify-center group-hover:flex"
                                             variants={barVariants}
                                         >
-											<span
+                                            <span
                                                 style={{ background: _color }}
                                                 className="h-[3px] w-1.5 rounded-full"
                                             />

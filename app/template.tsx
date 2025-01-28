@@ -142,18 +142,18 @@ export default function RootLayout({
                 }}
             />
             <div className="mx-auto min-h-screen max-w-7xl px-4 py-24">
-                    {children}
-                    <CookieConsent
-                        location="bottom"
-                        buttonText="Yum! 🍪"
-                        cookieName="CookieConsent"
-                        style={{ background: "#ff9900" }}
-                        buttonStyle={{ color: "#261800", fontSize: "13px" }}
-                        expires={150}
-                    >
-                        We use cookies to enhance your experience. Would you
-                        like some?
-                    </CookieConsent>
+                {children}
+                <CookieConsent
+                    location="bottom"
+                    buttonText="Yum! 🍪"
+                    cookieName="CookieConsent"
+                    style={{ background: "#ff9900" }}
+                    buttonStyle={{ color: "#261800", fontSize: "13px" }}
+                    expires={150}
+                >
+                    We use cookies to enhance your experience. Would you like
+                    some?
+                </CookieConsent>
             </div>
             <Footer
                 social={social}

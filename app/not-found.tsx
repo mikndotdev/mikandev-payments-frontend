@@ -10,20 +10,20 @@ export default function NotFound() {
     return (
         <>
             <html className={hsr.className} lang="en">
-            <body>
-            <div className="h-screen flex flex-col items-center justify-center">
-                <h1 className={"text-4xl text-center text-white"}>
-                    404 - Page Not Found
-                </h1>
-                <Link href={"/"}>
-                    <button
-                        className={"btn btn-primary text-white mt-5"}
-                    >
-                        Take me back
-                    </button>
-                </Link>
-            </div>
-            </body>
+                <body>
+                    <div className="h-screen flex flex-col items-center justify-center">
+                        <h1 className={"text-4xl text-center text-white"}>
+                            404 - Page Not Found
+                        </h1>
+                        <Link href={"/"}>
+                            <button
+                                className={"btn btn-primary text-white mt-5"}
+                            >
+                                Take me back
+                            </button>
+                        </Link>
+                    </div>
+                </body>
             </html>
         </>
     );

@@ -26,12 +26,12 @@ export interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({
-                                                  social,
-                                                  links,
-                                                  children,
-                                                  className,
-                                                  copylight = " 2021- Neody. All rights reserved.",
-                                              }) => {
+    social,
+    links,
+    children,
+    className,
+    copylight = " 2021- Neody. All rights reserved.",
+}) => {
     const maxWidth = links.length < 4 ? "max-w-4xl" : "max-w-5xl";
 
     return (
