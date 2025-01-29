@@ -3,6 +3,7 @@ import { auth, signIn } from "@/auth";
 import { api } from "@/polar";
 import { notFound } from "next/navigation";
 import { ConfirmationModal } from "@/app/ui/payments/confirmationModal";
+import { LoginModal } from "@/app/ui/loginModal";
 
 export default async function Page({
     params,
@@ -12,8 +13,12 @@ export default async function Page({
     const { slug: id } = await params;
     const session = await auth();
 
-    if (!session) {
-        signIn("logto");
+    if (!session?.user) {
+        return (
+            <div>
+                <LoginModal />
+            </div>
+        )
     }
 
     try {
@@ -23,7 +28,7 @@ export default async function Page({
 
         return (
             <div>
-                <ConfirmationModal product={result} />
+                <ConfirmationModal product={result} session={session} />
             </div>
         );
     } catch (e) {

@@ -1,7 +1,8 @@
 "use client";
 import { PolarEmbedCheckout } from "@polar-sh/checkout/embed";
 import type { Product } from "@polar-sh/sdk/models/components/product";
-import { signIn, signOut, useSession } from "next-auth/react";
+import type { Session } from "next-auth";
+import { signIn, signOut } from "next-auth/react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { createPayment } from "@/app/ui/payments/createPayment";
@@ -9,12 +10,11 @@ import { PiSignOutBold, PiCreditCardBold } from "react-icons/pi";
 
 interface ProductModalProps {
     product: Product;
+    session: Session;
 }
 
-export const ConfirmationModal = ({ product }: ProductModalProps) => {
+export const ConfirmationModal = ({ product, session }: ProductModalProps) => {
     const firstPrice = product.prices[0];
-    const subsc = product.isRecurring;
-    const { status, data } = useSession();
     const [paymentUrl, setPaymentUrl] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
@@ -25,7 +25,7 @@ export const ConfirmationModal = ({ product }: ProductModalProps) => {
             });
         }
         setLoading(true);
-        const url = await createPayment(id, data?.user?.email || "");
+        const url = await createPayment(id, session?.user?.email || "");
         setPaymentUrl(url);
         setLoading(false);
     };
@@ -56,14 +56,14 @@ export const ConfirmationModal = ({ product }: ProductModalProps) => {
                 </h3>
                 <div className="flex items-center space-x-4 justify-center mt-5">
                     <img
-                        src={data?.user?.image || ""}
-                        alt={data?.user?.name || ""}
+                        src={session?.user?.image || ""}
+                        alt={session?.user?.name || ""}
                         className="w-16 h-16 rounded-full"
                     />
                     <div className="flex flex-col space-y-1">
-                        <p className="text-white text-xl">{data?.user?.name}</p>
+                        <p className="text-white text-xl">{session?.user?.name}</p>
                         <p className="text-white text-sm">
-                            UID {data?.user?.id}
+                            UID {session?.user?.id}
                         </p>
                     </div>
                 </div>
