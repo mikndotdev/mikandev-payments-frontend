@@ -59,6 +59,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                     src={product.medias[0].publicUrl}
                     alt={product.description || ""}
                     width={200}
+                    height={200}
                     className="w-11/12 sm:w-3/4 mt-3 sm:mt-5 object-cover"
                 />
                 <h2 className="text-white text-xl sm:text-2xl mt-2 sm:mt-3">

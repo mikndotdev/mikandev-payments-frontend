@@ -97,8 +97,7 @@ export default function AccButton({ children }: AccButtonProps) {
                             </h2>
                         </div>
                         <div className="flex justify-center">
-                            <Image
-                                //@ts-ignore
+                            <img
                                 src={session?.user?.image}
                                 alt="MikanDev"
                                 width={80}
