@@ -19,7 +19,7 @@ export const ConfirmationModal = ({ product, session }: ProductModalProps) => {
     const [loading, setLoading] = useState(false);
 
     const handleBuy = async (id: string) => {
-        if (status !== "authenticated") {
+        if (!session) {
             return toast.error("You need to be signed in to buy this product", {
                 action: { label: "Sign in", onClick: () => signIn("logto") },
             });
